@@ -2965,7 +2965,7 @@ __metadata:
     stylelint: ^14.9.1
     svgo: ^2.3.0
     tinycolor2: ^1.4.2
-    ts-node: ^10.4.0
+    ts-node: ^10.7.0
     typescript: 4.6.4
     vite: ^2.9.9
     vite-plugin-istanbul: ^2.7.3
@@ -24416,10 +24416,11 @@ __metadata:
   bin:
     ts-node: dist/bin.js
     ts-node-cwd: dist/bin-cwd.js
+    ts-node-esm: dist/bin-esm.js
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: d51ac8a9b3582ce3705cef8d35f3372e40caa277dbd7c7baeb651961538f13d2f11f22402614348f78d9b10501bd1cb5f05ec4f2ec9a74bd0e288de769c32335
+  checksum: 2a379e43f7478d0b79e1e63af91fe222d83857727957df4bd3bdf3c0a884de5097b12feb9bbf530074526b8874c0338b0e6328cf334f3a5e2c49c71e837273f7
   languageName: node
   linkType: hard
 
