@@ -6,7 +6,7 @@ const {
   MultiSelection,
   OffsetSelection,
   RangeSelection,
-  UnselectableHighEmphasisDates,
+  UnselectableMediumEmphasisDates,
   UnselectableLowEmphasisDates,
   CustomFirstDayOfWeek,
   CustomDayRender,
@@ -465,12 +465,33 @@ describe("GIVEN a Calendar component", () => {
           name: formatDate(testDate.endOf("week")),
         }).should("not.have", "aria-pressed", "true");
       });
+
+      it("SHOULD allow a tooltip to be shown", () => {
+        cy.mount(
+          <UnselectableLowEmphasisDates
+            initialVisibleMonth={testDateDate}
+            // @ts-expect-error `data-*` attributes are not recognized in props objects
+            TooltipProps={{ "data-testid": "tooltip" }}
+          />
+        );
+        cy.findByRole("button", {
+          name: formatDate(testDate.endOf("week")),
+        }).realHover();
+
+        cy.findByTestId("tooltip").should(
+          "have.text",
+          UnselectableLowEmphasisDates.args?.isDayUnselectable?.(
+            testDate.endOf("week")
+            // @ts-ignore
+          )?.tooltip
+        );
+      });
     });
 
     describe("High Emphasis", () => {
       it("SHOULD apply `aria-disabled=true` to unselectable days", () => {
         cy.mount(
-          <UnselectableHighEmphasisDates initialVisibleMonth={testDateDate} />
+          <UnselectableMediumEmphasisDates initialVisibleMonth={testDateDate} />
         );
         cy.findByRole("button", {
           name: formatDate(testDate),
@@ -486,7 +507,7 @@ describe("GIVEN a Calendar component", () => {
 
       it("SHOULD allow a tooltip to be shown", () => {
         cy.mount(
-          <UnselectableHighEmphasisDates
+          <UnselectableMediumEmphasisDates
             initialVisibleMonth={testDateDate}
             // @ts-expect-error `data-*` attributes are not recognized in props objects
             TooltipProps={{ "data-testid": "tooltip" }}
@@ -498,7 +519,7 @@ describe("GIVEN a Calendar component", () => {
 
         cy.findByTestId("tooltip").should(
           "have.text",
-          UnselectableHighEmphasisDates.args?.isDayUnselectable?.(
+          UnselectableMediumEmphasisDates.args?.isDayUnselectable?.(
             testDateDate
             // @ts-ignore
           )?.tooltip
@@ -563,14 +584,25 @@ describe("GIVEN a Calendar component", () => {
       cy.findByRole("button", {
         name: `Previous Month, ${testDate
           .subtract(3, "month")
-          .format("MMMM YYYY")}`,
-      }).should("be.disabled");
+          .format("MMMM YYYY")} Past dates are out of range`,
+      }).should("have.attr", "aria-disabled", "true");
 
       cy.findByRole("listbox", { name: "Month Dropdown" }).realClick();
       cy.findByTestId("dropdown-list")
         .findAllByRole("option")
         .filter("[aria-disabled=true]")
         .should("have.length", 10);
+
+      cy.findByTestId("dropdown-list")
+        .findAllByRole("option")
+        .filter("[aria-disabled=true]")
+        .eq(0)
+        .realHover();
+
+      cy.findByRole("tooltip").should(
+        "have.text",
+        "This month is out of range"
+      );
 
       cy.findByRole("button", {
         name: `Next Month, ${testDate
@@ -587,8 +619,10 @@ describe("GIVEN a Calendar component", () => {
         name: `Next Month, ${testDate.add(2, "month").format("MMMM YYYY")}`,
       }).realClick();
       cy.findByRole("button", {
-        name: `Next Month, ${testDate.add(3, "month").format("MMMM YYYY")}`,
-      }).should("be.disabled");
+        name: `Next Month, ${testDate
+          .add(3, "month")
+          .format("MMMM YYYY")} Future dates are out of range`,
+      }).should("have.attr", "aria-disabled", "true");
 
       cy.findByRole("listbox", { name: "Month Dropdown" }).realClick();
       cy.findByTestId("dropdown-list")
@@ -626,6 +660,82 @@ describe("GIVEN a Calendar component", () => {
         .eq(0)
         .should("not.be.visible")
         .and("have.attr", "aria-hidden", "true");
+    });
+  });
+
+  describe("Navigation Wrapping", () => {
+    it("SHOULD wrap to the previous year", () => {
+      const startOfYear = dayjs().startOf("year");
+      cy.mount(<DefaultCalendar initialVisibleMonth={startOfYear.toDate()} />);
+      cy.findByRole("button", {
+        name: `Previous Month, ${startOfYear
+          .subtract(1, "month")
+          .format("MMMM YYYY")}`,
+      }).realClick();
+
+      cy.findByRole("button", {
+        name: formatDate(startOfYear.subtract(1, "month")),
+      }).should("be.visible");
+    });
+
+    it("SHOULD wrap to the next year", () => {
+      const endOfYear = dayjs().endOf("year");
+      cy.mount(<DefaultCalendar initialVisibleMonth={endOfYear.toDate()} />);
+      cy.findByRole("button", {
+        name: `Next Month, ${endOfYear.add(1, "month").format("MMMM YYYY")}`,
+      }).realClick();
+
+      cy.findByRole("button", {
+        name: formatDate(endOfYear.add(1, "month")),
+      }).should("be.visible");
+    });
+
+    describe("WHEN `hideYearDropdown=true`", () => {
+      it("SHOULD not wrap to the previous year", () => {
+        const startOfYear = dayjs().startOf("year");
+        cy.mount(
+          <DefaultCalendar
+            initialVisibleMonth={startOfYear.toDate()}
+            hideYearDropdown
+          />
+        );
+        cy.findByRole("button", {
+          name: `Previous Month, ${startOfYear
+            .subtract(1, "month")
+            .format("MMMM YYYY")}`,
+        }).realClick();
+
+        cy.findByRole("button", {
+          name: formatDate(startOfYear),
+        }).should("be.visible");
+        cy.findByRole("button", {
+          name: `Previous Month, ${startOfYear
+            .subtract(1, "month")
+            .format("MMMM YYYY")} Past dates are out of range`,
+        }).should("have.attr", "aria-disabled", "true");
+      });
+
+      it("SHOULD not wrap to the next year", () => {
+        const endOfYear = dayjs().endOf("year");
+        cy.mount(
+          <DefaultCalendar
+            initialVisibleMonth={endOfYear.toDate()}
+            hideYearDropdown
+          />
+        );
+        cy.findByRole("button", {
+          name: `Next Month, ${endOfYear.add(1, "month").format("MMMM YYYY")}`,
+        }).realClick();
+
+        cy.findByRole("button", {
+          name: formatDate(endOfYear),
+        }).should("be.visible");
+        cy.findByRole("button", {
+          name: `Next Month, ${endOfYear
+            .add(1, "month")
+            .format("MMMM YYYY")} Future dates are out of range`,
+        }).should("have.attr", "aria-disabled", "true");
+      });
     });
   });
 });

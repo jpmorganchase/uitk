@@ -83,6 +83,7 @@
     "cypress-axe": "^0.14.0",
     "cypress-image-snapshot": "^4.0.1",
     "cypress-real-events": "^1.6.0",
+    "date-holidays": "^3.14.10",
     "dayjs": "1.10.6",
     "deepmerge": "^4.2.2",
     "del": "^6.0.0",

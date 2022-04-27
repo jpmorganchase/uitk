@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Calendar, CalendarProps } from "@jpmorganchase/uitk-lab";
 import dayjs from "dayjs";
+import Holidays from "date-holidays";
 import isoWeek from "dayjs/plugin/isoWeek";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
@@ -9,6 +10,10 @@ import "./calendar.stories.css";
 import { UseRangeSelectionCalendarProps } from "@jpmorganchase/uitk-lab/src/calendar/internal/useSelection";
 
 dayjs.extend(isoWeek);
+
+const holidays = new Holidays();
+holidays.init("US");
+holidays.init("GB");
 
 export default {
   title: "Lab/Calendar",
@@ -24,17 +29,30 @@ const Template: ComponentStory<typeof Calendar> = (args) => {
 
 export const DefaultCalendar = Template.bind({});
 
-export const UnselectableHighEmphasisDates = Template.bind({});
-UnselectableHighEmphasisDates.args = {
-  isDayUnselectable: (day) =>
-    dayjs().diff(day) > 0
-      ? { emphasis: "high", tooltip: "Date is in the past." }
-      : false,
+const allHolidays = holidays.getHolidays();
+
+export const UnselectableMediumEmphasisDates = Template.bind({});
+UnselectableMediumEmphasisDates.args = {
+  isDayUnselectable: (day) => {
+    const holiday = allHolidays.find((n) => dayjs(n.date).isSame(day, "day"));
+    return holiday
+      ? {
+          emphasis: "medium",
+          tooltip: `This date is a Public Holiday (${holiday.name})`,
+        }
+      : false;
+  },
 };
 
 export const UnselectableLowEmphasisDates = Template.bind({});
 UnselectableLowEmphasisDates.args = {
-  isDayUnselectable: (day) => dayjs(day).isoWeekday() >= 6,
+  isDayUnselectable: (day) =>
+    dayjs(day).isoWeekday() === 7
+      ? {
+          emphasis: "low",
+          tooltip: "This date is a Sunday",
+        }
+      : false,
 };
 
 export const CustomFirstDayOfWeek = Template.bind({});

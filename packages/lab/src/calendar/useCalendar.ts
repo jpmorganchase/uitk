@@ -11,16 +11,17 @@ import {
 } from "./internal/useSelection";
 
 export type UnselectableInfo =
-  | { emphasis: "high"; tooltip?: string }
-  | { emphasis: "low" };
+  | { emphasis: "medium"; tooltip: string }
+  | { emphasis: "low"; tooltip?: string };
 
 interface BaseUseCalendarProps {
   initialVisibleMonth?: Date;
   onVisibleMonthChange?: (event: SyntheticEvent, visibleMonth: Date) => void;
-  isDayUnselectable?: (date: Date) => UnselectableInfo | boolean;
+  isDayUnselectable?: (date: Date) => UnselectableInfo | false | undefined;
   visibleMonth?: Date;
   firstDayOfWeek?: number;
   hideOutOfRangeDates?: boolean;
+  hideYearDropdown?: boolean;
   minDate?: Date;
   maxDate?: Date;
 }
@@ -33,21 +34,22 @@ export type useCalendarProps = (
 ) &
   BaseUseCalendarProps;
 
-const defaultIsDayUnselectable = (): UnselectableInfo | boolean => false;
+const defaultIsDayUnselectable = (): UnselectableInfo | false => false;
 
 export function useCalendar(props: useCalendarProps) {
   const {
     selectedDate,
     initialSelectedDate,
     visibleMonth: visibleMonthProp,
+    hideYearDropdown,
     hideOutOfRangeDates,
     initialVisibleMonth = dayjs().startOf("month").toDate(),
     onSelectedDateChange,
     onVisibleMonthChange,
     firstDayOfWeek = 1,
     isDayUnselectable = defaultIsDayUnselectable,
-    minDate,
-    maxDate,
+    minDate = hideYearDropdown ? dayjs().startOf("year").toDate() : undefined,
+    maxDate = hideYearDropdown ? dayjs().endOf("year").toDate() : undefined,
     selectionVariant,
     onHoveredDateChange,
     hoveredDate,
