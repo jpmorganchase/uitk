@@ -46,13 +46,15 @@ UnselectableMediumEmphasisDates.args = {
 
 export const UnselectableLowEmphasisDates = Template.bind({});
 UnselectableLowEmphasisDates.args = {
-  isDayUnselectable: (day) =>
-    dayjs(day).isoWeekday() === 7
+  isDayUnselectable: (day) => {
+    const holiday = allHolidays.find((n) => dayjs(n.date).isSame(day, "day"));
+    return holiday
       ? {
           emphasis: "low",
-          tooltip: "This date is a Sunday",
+          tooltip: `This date is a Public Holiday (${holiday.name})`,
         }
-      : false,
+      : false;
+  },
 };
 
 export const CustomFirstDayOfWeek = Template.bind({});
@@ -87,11 +89,10 @@ RangeSelection.args = {
 };
 
 export const OffsetSelection = Template.bind({});
+const span = 4;
 OffsetSelection.args = {
   selectionVariant: "offset",
-  startDateOffset: (date) =>
-    dayjs(date).subtract(dateRangeCount, "days").toDate(),
-  endDateOffset: (date) => dayjs(date).add(dateRangeCount, "days").toDate(),
+  endDateOffset: (date) => dayjs(date).add(span, "days").toDate(),
 };
 
 export const MultiSelection = Template.bind({});
@@ -104,6 +105,7 @@ HideOutOfRangeDays.args = {
   hideOutOfRangeDates: true,
 };
 
+const one = 1;
 export const TwinCalendars: ComponentStory<typeof Calendar> = () => {
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
   const handleHoveredDateChange: CalendarProps["onHoveredDateChange"] = (
@@ -120,7 +122,7 @@ export const TwinCalendars: ComponentStory<typeof Calendar> = () => {
     };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", gap: 16 }}>
       <Calendar
         selectionVariant="range"
         onHoveredDateChange={handleHoveredDateChange}
@@ -134,6 +136,7 @@ export const TwinCalendars: ComponentStory<typeof Calendar> = () => {
         hoveredDate={hoveredDate}
         onSelectedDateChange={handleSelectedDateChange}
         selectedDate={selectedDate}
+        initialVisibleMonth={dayjs().add(one, "month").toDate()}
       />
     </div>
   );
