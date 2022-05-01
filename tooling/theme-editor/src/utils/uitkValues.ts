@@ -29,3 +29,5 @@ export const UITK_FOUNDATIONS = [
   "typography",
   "zindex",
 ];
+
+export const UITK_COMPONENTS = ["button"];
