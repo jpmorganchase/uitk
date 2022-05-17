@@ -1,5 +1,5 @@
 export const UITK_CHARACTERISTICS = [
-  "accent",
+  // "accent",
   "actionable",
   "container",
   "delay",
@@ -38,6 +38,11 @@ export const UITK_PALETTES = [
   "rate",
   "error",
   "negative",
+  "info",
+  "measure",
+  "accent",
+  "neutral",
+  "action",
 ];
 
 export const UITK_COMPONENTS = ["button"];
