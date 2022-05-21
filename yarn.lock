@@ -8698,7 +8698,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:4.1.2":
+"change-case@npm:4.1.2, change-case@npm:^4.1.2":
   version: 4.1.2
   resolution: "change-case@npm:4.1.2"
   dependencies:
@@ -13508,6 +13508,14 @@ __metadata:
   checksum: 8dabd2505164191501b75f2861b5e1194458a344ae2a7c9776bdd72d1f50b248dff737bcdf118fff677275edb3632f2d10662e6ac122dd7b245c5baa8d303270
   languageName: node
   linkType: hard
+
+"generic-style-generator@workspace:tooling/generic-style-generator":
+  version: 0.0.0-use.local
+  resolution: "generic-style-generator@workspace:tooling/generic-style-generator"
+  dependencies:
+    style-dictionary: ^3.7.0
+  languageName: unknown
+  linkType: soft
 
 "gensync@npm:^1.0.0-beta.1, gensync@npm:^1.0.0-beta.2":
   version: 1.0.0-beta.2
@@ -23701,6 +23709,25 @@ __metadata:
   dependencies:
     escape-string-regexp: ^1.0.2
   checksum: f8d65d33ca2b49aabc66bb41d689dda7b8b9959d320e3a40a2ef4d7079ff2f67ffb72db43f179f48dbf9495c2e33742863feab7a584d180fa62505439162c191
+  languageName: node
+  linkType: hard
+
+"style-dictionary@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "style-dictionary@npm:3.7.0"
+  dependencies:
+    chalk: ^4.0.0
+    change-case: ^4.1.2
+    commander: ^8.3.0
+    fs-extra: ^10.0.0
+    glob: ^7.2.0
+    json5: ^2.2.0
+    jsonc-parser: ^3.0.0
+    lodash: ^4.17.15
+    tinycolor2: ^1.4.1
+  bin:
+    style-dictionary: bin/style-dictionary
+  checksum: 97fd972e5eb57d931a2dc2f5e6461642f7c9cdff9bc54642b8ab1372b3a9e613f57fefdca406b773b9d5e061e8450a20967ab3d0c6da5bb2787ea246cede3eac
   languageName: node
   linkType: hard
 
