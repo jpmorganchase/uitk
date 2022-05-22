@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "node ./scripts/generateIconComponent.js '*.svg' && node ./scripts/generateIconIndex.js"
+    "build": "node ./scripts/generateIconComponent.js '*.svg' && node ./scripts/generateIconIndex.js",
+    "build:figma": "node ./scripts/generateIconHtml.js '*.svg'"
   },
   "peerDependencies": {
     "@types/react": ">=16.8.6",
