@@ -9,10 +9,26 @@
           }
         }
       },
+      "400": {
+        "fade": {
+          "foreground": {
+            "value": "rgba(46, 132, 198, var(--uitk-opacity-foreground))"
+          },
+          "fill": {
+            "value": "rgba(46, 132, 198, var(--uitk-opacity-fill))"
+          }
+        }
+      },
       "600": {
         "fade": {
+          "foreground": {
+            "value": "rgba(21, 92, 147, var(--uitk-opacity-foreground))"
+          },
           "background": {
             "value": "rgba(21, 92, 147, var(--uitk-opacity-background))"
+          },
+          "fill": {
+            "value": "rgba(21, 92, 147, var(--uitk-opacity-fill))"
           }
         }
       },
@@ -20,11 +36,28 @@
         "fade": {
           "99": {
             "value": "rgba(0, 71, 123, 0.99)"
+          },
+          "background": {
+            "value": "rgba(0, 71, 123, var(--uitk-opacity-background))"
           }
         }
       }
     },
     "grey": {
+      "20": {
+        "fade": {
+          "background": {
+            "value": "rgba(234, 237, 239, var(--uitk-opacity-background))"
+          }
+        }
+      },
+      "30": {
+        "fade": {
+          "border": {
+            "value": "rgba(224, 228, 233, var(--uitk-opacity-border))"
+          }
+        }
+      },
       "60": {
         "fade": {
           "foreground": {
@@ -42,6 +75,9 @@
         "fade": {
           "foreground": {
             "value": "rgba(180, 183, 190, var(--uitk-opacity-foreground))"
+          },
+          "background": {
+            "value": "rgba(180, 183, 190, var(--uitk-opacity-background))"
           }
         }
       },
@@ -52,6 +88,9 @@
             "readonly": {
               "value": "rgba(132, 135, 142, var(--uitk-opacity-border-readonly))"
             }
+          },
+          "stroke": {
+            "value": "rgba(132, 135, 142, var(--uitk-opacity-stroke))"
           }
         }
       },
@@ -59,6 +98,9 @@
         "fade": {
           "foreground": {
             "value": "rgba(97, 101, 110, var(--uitk-opacity-foreground))"
+          },
+          "background": {
+            "value": "rgba(97, 101, 110, var(--uitk-opacity-background))"
           }
         }
       },
@@ -72,8 +114,28 @@
           }
         }
       },
+      "600": {
+        "fade": {
+          "border": {
+            "value": "rgba(47, 49, 54, var(--uitk-opacity-border))"
+          }
+        }
+      },
+      "700": {
+        "fade": {
+          "background": {
+            "value": "rgba(42, 44, 47, var(--uitk-opacity-background))"
+          }
+        }
+      },
       "800": {
         "fade": {
+          "foreground": {
+            "value": "rgba(36, 37, 38, var(--uitk-opacity-foreground))"
+          },
+          "background": {
+            "value": "rgba(36, 37, 38, var(--uitk-opacity-background))"
+          },
           "scrim": {
             "medium": {
               "value": "rgba(36, 37, 38, var(--uitk-opacity-scrim-medium))"
@@ -94,9 +156,28 @@
         "foreground": {
           "value": "rgba(255, 255, 255, var(--uitk-opacity-foreground))"
         },
+        "background": {
+          "value": "rgba(255, 255, 255, var(--uitk-opacity-background))"
+        },
         "scrim": {
           "low": {
             "value": "rgba(255, 255, 255, var(--uitk-opacity-scrim-medium))"
+          }
+        }
+      }
+    },
+    "orange": {
+      "400": {
+        "fade": {
+          "background": {
+            "value": "rgba(238, 133, 43, var(--uitk-opacity-background))"
+          }
+        }
+      },
+      "600": {
+        "fade": {
+          "background": {
+            "value": "rgba(224, 101, 25, var(--uitk-opacity-background))"
           }
         }
       }

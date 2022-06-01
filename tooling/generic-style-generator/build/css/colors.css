@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 25 May 2022 13:51:01 GMT
+ * Generated on Wed, 01 Jun 2022 22:14:38 GMT
  */
 
 .uitk-light, .uitk-dark {
@@ -20,8 +20,7 @@
   --uitk-color-red-600: #c42010;
   --uitk-color-red-700: #a6150b;
   --uitk-color-red-800: #880a05;
-  --uitk-color-red-900: #6a0000;
-  --uitk-color-red-1000: #412522;
+  --uitk-color-red-900: #412522;
   --uitk-color-orange-10: #ffe8bf;
   --uitk-color-orange-20: #fedfa6;
   --uitk-color-orange-30: #fed68e;
@@ -35,8 +34,7 @@
   --uitk-color-orange-600: #e06519;
   --uitk-color-orange-700: #d65513;
   --uitk-color-orange-800: #cc440d;
-  --uitk-color-orange-900: #c23407;
-  --uitk-color-orange-1000: #362c24;
+  --uitk-color-orange-900: #362c24;
   --uitk-color-green-10: #d1f4c9;
   --uitk-color-green-20: #b8e8b6;
   --uitk-color-green-30: #a0dda4;
@@ -50,8 +48,7 @@
   --uitk-color-green-600: #18723d;
   --uitk-color-green-700: #0c5d2e;
   --uitk-color-green-800: #014920;
-  --uitk-color-green-900: #003912;
-  --uitk-color-green-1000: #23342b;
+  --uitk-color-green-900: #23342b;
   --uitk-color-teal-10: #daf0f0;
   --uitk-color-teal-20: #c7e8e8;
   --uitk-color-teal-30: #b4e0e1;
@@ -66,7 +63,6 @@
   --uitk-color-teal-700: #005571;
   --uitk-color-teal-800: #014156;
   --uitk-color-teal-900: #00314c;
-  --uitk-color-teal-1000: #1c373c;
   --uitk-color-blue-10: #cbe7f9;
   --uitk-color-blue-20: #b7def6;
   --uitk-color-blue-30: #a4d5f4;
@@ -75,14 +71,12 @@
   --uitk-color-blue-100: #64b1e4;
   --uitk-color-blue-200: #4b9fd8;
   --uitk-color-blue-300: #338dcd;
-  --uitk-color-blue-400: #2d81bd;
+  --uitk-color-blue-400: #2e84c6;
   --uitk-color-blue-500: #2670a9;
   --uitk-color-blue-600: #155c93;
   --uitk-color-blue-700: #00477b;
-  --uitk-color-blue-800: #0c3566;
-  --uitk-color-blue-900: #002858;
-  --uitk-color-blue-1000: #232f38;
-  --uitk-color-blue-2000: #273c4f;
+  --uitk-color-blue-800: #273c4d;
+  --uitk-color-blue-900: #232f38;
   --uitk-color-purple-10: #f9e0f7;
   --uitk-color-purple-20: #f7d4f4;
   --uitk-color-purple-30: #f5c9f1;
@@ -97,7 +91,6 @@
   --uitk-color-purple-700: #672e7a;
   --uitk-color-purple-800: #53256d;
   --uitk-color-purple-900: #3b1054;
-  --uitk-color-purple-1000: #3a2d3e;
   --uitk-color-grey-10: #f2f4f6;
   --uitk-color-grey-20: #eaedef;
   --uitk-color-grey-30: #e0e4e9;

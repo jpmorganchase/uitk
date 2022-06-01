@@ -1,5 +1,9 @@
 {
-  "source": ["tokens/**/*.json", "tokens/**/*.js"],
+  "source": [
+    "tokens/**/all/*.json",
+    "tokens/**/light/*.json",
+    "tokens/**/*.js"
+  ],
   "platforms": {
     "rn": {
       "transformGroup": "react-native",
@@ -24,7 +28,7 @@
         },
         {
           "format": "uitk/css/themes/light",
-          "destination": "palettes-light.css",
+          "destination": "palette-light.css",
           "options": {
             "outputReferences": true
           },
@@ -32,7 +36,7 @@
         },
         {
           "format": "uitk/css/themes/dark",
-          "destination": "palettes-dark.css",
+          "destination": "palette-dark.css",
           "options": {
             "outputReferences": true
           },

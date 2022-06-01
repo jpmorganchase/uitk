@@ -4,7 +4,7 @@
 //
 
 // Do not edit directly
-// Generated on Wed, 25 May 2022 13:51:01 GMT
+// Generated on Wed, 01 Jun 2022 22:14:38 GMT
 
 
 import UIKit
@@ -19,23 +19,20 @@ public enum StyleDictionaryEnum {
     public static let uitkColorBlack = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1)
     public static let uitkColorBlue10 = UIColor(red: 0.796, green: 0.906, blue: 0.976, alpha: 1)
     public static let uitkColorBlue100 = UIColor(red: 0.392, green: 0.694, blue: 0.894, alpha: 1)
-    public static let uitkColorBlue1000 = UIColor(red: 0.137, green: 0.184, blue: 0.220, alpha: 1)
     public static let uitkColorBlue20 = UIColor(red: 0.718, green: 0.871, blue: 0.965, alpha: 1)
     public static let uitkColorBlue200 = UIColor(red: 0.294, green: 0.624, blue: 0.847, alpha: 1)
-    public static let uitkColorBlue2000 = UIColor(red: 0.153, green: 0.235, blue: 0.310, alpha: 1)
     public static let uitkColorBlue30 = UIColor(red: 0.643, green: 0.835, blue: 0.957, alpha: 1)
     public static let uitkColorBlue300 = UIColor(red: 0.200, green: 0.553, blue: 0.804, alpha: 1)
     public static let uitkColorBlue40 = UIColor(red: 0.565, green: 0.800, blue: 0.949, alpha: 1)
-    public static let uitkColorBlue400 = UIColor(red: 0.176, green: 0.506, blue: 0.741, alpha: 1)
+    public static let uitkColorBlue400 = UIColor(red: 0.180, green: 0.518, blue: 0.776, alpha: 1)
     public static let uitkColorBlue50 = UIColor(red: 0.490, green: 0.765, blue: 0.941, alpha: 1)
     public static let uitkColorBlue500 = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
     public static let uitkColorBlue600 = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
     public static let uitkColorBlue700 = UIColor(red: 0.000, green: 0.278, blue: 0.482, alpha: 1)
-    public static let uitkColorBlue800 = UIColor(red: 0.047, green: 0.208, blue: 0.400, alpha: 1)
-    public static let uitkColorBlue900 = UIColor(red: 0.000, green: 0.157, blue: 0.345, alpha: 1)
+    public static let uitkColorBlue800 = UIColor(red: 0.153, green: 0.235, blue: 0.302, alpha: 1)
+    public static let uitkColorBlue900 = UIColor(red: 0.137, green: 0.184, blue: 0.220, alpha: 1)
     public static let uitkColorGreen10 = UIColor(red: 0.820, green: 0.957, blue: 0.788, alpha: 1)
     public static let uitkColorGreen100 = UIColor(red: 0.365, green: 0.741, blue: 0.455, alpha: 1)
-    public static let uitkColorGreen1000 = UIColor(red: 0.137, green: 0.204, blue: 0.169, alpha: 1)
     public static let uitkColorGreen20 = UIColor(red: 0.722, green: 0.910, blue: 0.714, alpha: 1)
     public static let uitkColorGreen200 = UIColor(red: 0.302, green: 0.706, blue: 0.412, alpha: 1)
     public static let uitkColorGreen30 = UIColor(red: 0.627, green: 0.867, blue: 0.643, alpha: 1)
@@ -47,7 +44,7 @@ public enum StyleDictionaryEnum {
     public static let uitkColorGreen600 = UIColor(red: 0.094, green: 0.447, blue: 0.239, alpha: 1)
     public static let uitkColorGreen700 = UIColor(red: 0.047, green: 0.365, blue: 0.180, alpha: 1)
     public static let uitkColorGreen800 = UIColor(red: 0.004, green: 0.286, blue: 0.125, alpha: 1)
-    public static let uitkColorGreen900 = UIColor(red: 0.000, green: 0.224, blue: 0.071, alpha: 1)
+    public static let uitkColorGreen900 = UIColor(red: 0.137, green: 0.204, blue: 0.169, alpha: 1)
     public static let uitkColorGrey10 = UIColor(red: 0.949, green: 0.957, blue: 0.965, alpha: 1)
     public static let uitkColorGrey100 = UIColor(red: 0.455, green: 0.467, blue: 0.498, alpha: 1)
     public static let uitkColorGrey20 = UIColor(red: 0.918, green: 0.929, blue: 0.937, alpha: 1)
@@ -68,7 +65,6 @@ public enum StyleDictionaryEnum {
     public static let uitkColorGrey900 = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkColorOrange10 = UIColor(red: 1.000, green: 0.910, blue: 0.749, alpha: 1)
     public static let uitkColorOrange100 = UIColor(red: 0.980, green: 0.710, blue: 0.318, alpha: 1)
-    public static let uitkColorOrange1000 = UIColor(red: 0.212, green: 0.173, blue: 0.141, alpha: 1)
     public static let uitkColorOrange20 = UIColor(red: 0.996, green: 0.875, blue: 0.651, alpha: 1)
     public static let uitkColorOrange200 = UIColor(red: 0.965, green: 0.647, blue: 0.267, alpha: 1)
     public static let uitkColorOrange30 = UIColor(red: 0.996, green: 0.839, blue: 0.557, alpha: 1)
@@ -80,10 +76,9 @@ public enum StyleDictionaryEnum {
     public static let uitkColorOrange600 = UIColor(red: 0.878, green: 0.396, blue: 0.098, alpha: 1)
     public static let uitkColorOrange700 = UIColor(red: 0.839, green: 0.333, blue: 0.075, alpha: 1)
     public static let uitkColorOrange800 = UIColor(red: 0.800, green: 0.267, blue: 0.051, alpha: 1)
-    public static let uitkColorOrange900 = UIColor(red: 0.761, green: 0.204, blue: 0.027, alpha: 1)
+    public static let uitkColorOrange900 = UIColor(red: 0.212, green: 0.173, blue: 0.141, alpha: 1)
     public static let uitkColorPurple10 = UIColor(red: 0.976, green: 0.878, blue: 0.969, alpha: 1)
     public static let uitkColorPurple100 = UIColor(red: 0.875, green: 0.612, blue: 0.882, alpha: 1)
-    public static let uitkColorPurple1000 = UIColor(red: 0.227, green: 0.176, blue: 0.243, alpha: 1)
     public static let uitkColorPurple20 = UIColor(red: 0.969, green: 0.831, blue: 0.957, alpha: 1)
     public static let uitkColorPurple200 = UIColor(red: 0.804, green: 0.529, blue: 0.843, alpha: 1)
     public static let uitkColorPurple30 = UIColor(red: 0.961, green: 0.788, blue: 0.945, alpha: 1)
@@ -98,7 +93,6 @@ public enum StyleDictionaryEnum {
     public static let uitkColorPurple900 = UIColor(red: 0.231, green: 0.063, blue: 0.329, alpha: 1)
     public static let uitkColorRed10 = UIColor(red: 1.000, green: 0.890, blue: 0.878, alpha: 1)
     public static let uitkColorRed100 = UIColor(red: 1.000, green: 0.502, blue: 0.435, alpha: 1)
-    public static let uitkColorRed1000 = UIColor(red: 0.255, green: 0.145, blue: 0.133, alpha: 1)
     public static let uitkColorRed20 = UIColor(red: 1.000, green: 0.812, blue: 0.788, alpha: 1)
     public static let uitkColorRed200 = UIColor(red: 1.000, green: 0.424, blue: 0.345, alpha: 1)
     public static let uitkColorRed30 = UIColor(red: 1.000, green: 0.733, blue: 0.698, alpha: 1)
@@ -110,10 +104,9 @@ public enum StyleDictionaryEnum {
     public static let uitkColorRed600 = UIColor(red: 0.769, green: 0.125, blue: 0.063, alpha: 1)
     public static let uitkColorRed700 = UIColor(red: 0.651, green: 0.082, blue: 0.043, alpha: 1)
     public static let uitkColorRed800 = UIColor(red: 0.533, green: 0.039, blue: 0.020, alpha: 1)
-    public static let uitkColorRed900 = UIColor(red: 0.416, green: 0.000, blue: 0.000, alpha: 1)
+    public static let uitkColorRed900 = UIColor(red: 0.255, green: 0.145, blue: 0.133, alpha: 1)
     public static let uitkColorTeal10 = UIColor(red: 0.855, green: 0.941, blue: 0.941, alpha: 1)
     public static let uitkColorTeal100 = UIColor(red: 0.482, green: 0.757, blue: 0.784, alpha: 1)
-    public static let uitkColorTeal1000 = UIColor(red: 0.110, green: 0.216, blue: 0.235, alpha: 1)
     public static let uitkColorTeal20 = UIColor(red: 0.780, green: 0.910, blue: 0.910, alpha: 1)
     public static let uitkColorTeal200 = UIColor(red: 0.388, green: 0.710, blue: 0.753, alpha: 1)
     public static let uitkColorTeal30 = UIColor(red: 0.706, green: 0.878, blue: 0.882, alpha: 1)
@@ -137,18 +130,25 @@ public enum StyleDictionaryEnum {
     public static let uitkPaletteInfoBackgroundHigh = UIColor(red: 0.796, green: 0.906, blue: 0.976, alpha: 1)
     public static let uitkPaletteInfoBorder = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
     public static let uitkPaletteInfoIcon = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
-    public static let uitkPaletteInteractBackground = transparent
+    public static let uitkPaletteInteractBackgroundActive = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
+    public static let uitkPaletteInteractBackgroundBlurSelected = UIColor(red: 0.878, green: 0.894, blue: 0.914, alpha: 1)
+    public static let uitkPaletteInteractBackgroundDisabledHigh = rgba(234, 237, 239, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractBackgroundDisabledMedium = rgba(255, 255, 255, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractBackgroundHigh = UIColor(red: 0.918, green: 0.929, blue: 0.937, alpha: 1)
+    public static let uitkPaletteInteractBackgroundHover = UIColor(red: 0.718, green: 0.871, blue: 0.965, alpha: 1)
+    public static let uitkPaletteInteractBackgroundLow = transparent
+    public static let uitkPaletteInteractBackgroundMedium = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
     public static let uitkPaletteInteractBorder = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
     public static let uitkPaletteInteractCtaBackground = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
     public static let uitkPaletteInteractCtaForeground = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
-    public static let uitkPaletteInteractFill = transparent
     public static let uitkPaletteInteractForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkPaletteInteractPrimaryBackground = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
     public static let uitkPaletteInteractPrimaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkPaletteInteractSecondaryBackground = transparent
     public static let uitkPaletteInteractSecondaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
-    public static let uitkPaletteInteractStroke = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
-    public static let uitkPaletteMeasureBackground = linear-gradient(0deg, var(--uitk-palette-measure-background-gradient-start-color) 0%, var(--uitk-palette-measure-background-gradient-stop-color) 100%)
+    public static let uitkPaletteMeasureBackground = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
+    public static let uitkPaletteMeasureBorder = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
+    public static let uitkPaletteMeasureFill = linear-gradient(0deg, var(--uitk-palette-measure-fill-startColor) 0%, var(--uitk-palette-measure-fill-stopColor) 100%)
     public static let uitkPaletteNavigateBackgroundActiveHigh = transparent
     public static let uitkPaletteNavigateBackgroundActiveLow = transparent
     public static let uitkPaletteNavigateBackgroundActiveMedium = transparent
@@ -159,23 +159,25 @@ public enum StyleDictionaryEnum {
     public static let uitkPaletteNavigateBackgroundLow = transparent
     public static let uitkPaletteNavigateBackgroundMedium = transparent
     public static let uitkPaletteNavigateForeground = UIColor(red: 0.267, green: 0.282, blue: 0.310, alpha: 1)
-    public static let uitkPaletteNavigateIndicatorActive = UIColor(red: 0.933, green: 0.522, blue: 0.169, alpha: 1)
+    public static let uitkPaletteNavigateIndicatorActive = UIColor(red: 0.878, green: 0.396, blue: 0.098, alpha: 1)
     public static let uitkPaletteNavigateIndicatorHover = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
     public static let uitkPaletteNegativeForeground = UIColor(red: 0.651, green: 0.082, blue: 0.043, alpha: 1)
     public static let uitkPaletteNeutralBackgroundHigh = UIColor(red: 0.918, green: 0.929, blue: 0.937, alpha: 1)
     public static let uitkPaletteNeutralBackgroundLow = transparent
     public static let uitkPaletteNeutralBackgroundMedium = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
     public static let uitkPaletteNeutralBorderDisabledHigh = rgba(132, 135, 142, var(--uitk-opacity-border))
+    public static let uitkPaletteNeutralBorderDisabledLow = rgba(224, 228, 233, var(--uitk-opacity-border))
     public static let uitkPaletteNeutralBorderDisabledMedium = rgba(197, 201, 208, var(--uitk-opacity-border))
     public static let uitkPaletteNeutralBorderHigh = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
     public static let uitkPaletteNeutralBorderLow = UIColor(red: 0.878, green: 0.894, blue: 0.914, alpha: 1)
     public static let uitkPaletteNeutralBorderMedium = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
     public static let uitkPaletteNeutralCtaBorder = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
-    public static let uitkPaletteNeutralEndpoint = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
+    public static let uitkPaletteNeutralHighlight = UIColor(red: 0.643, green: 0.835, blue: 0.957, alpha: 1)
     public static let uitkPaletteNeutralPrimaryBorder = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
     public static let uitkPaletteNeutralPrimaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkPaletteNeutralScrimLow = rgba(255, 255, 255, var(--uitk-opacity-scrim-medium))
     public static let uitkPaletteNeutralScrimMedium = rgba(0, 0, 0, var(--uitk-opacity-scrim-low))
+    public static let uitkPaletteNeutralSecondaryBorder = transparent
     public static let uitkPaletteNeutralSecondaryForeground = UIColor(red: 0.380, green: 0.396, blue: 0.431, alpha: 1)
     public static let uitkPalettePositiveForeground = UIColor(red: 0.047, green: 0.365, blue: 0.180, alpha: 1)
     public static let uitkPaletteRateBackground = transparent

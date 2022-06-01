@@ -21,7 +21,9 @@ log(outputDir);
 // }
 // fs.mkdirSync(outputDir);
 
-const removePrefix = (input) => input.replaceAll(cssVarPrefix, "");
+const removePrefix = (input) =>
+  input.replace(new RegExp(cssVarPrefix, "g"), "");
+
 /**
  * `var(--uitk-abc-def)` => `{abc.def}`
  */

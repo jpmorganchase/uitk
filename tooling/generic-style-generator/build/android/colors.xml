@@ -2,7 +2,7 @@
 
 <!--
   Do not edit directly
-  Generated on Wed, 25 May 2022 13:51:01 GMT
+  Generated on Wed, 01 Jun 2022 22:14:38 GMT
 -->
 <resources>
   <color name="uitk_color_transparent">#00000000</color>
@@ -21,8 +21,7 @@
   <color name="uitk_color_red_600">#ffc42010</color>
   <color name="uitk_color_red_700">#ffa6150b</color>
   <color name="uitk_color_red_800">#ff880a05</color>
-  <color name="uitk_color_red_900">#ff6a0000</color>
-  <color name="uitk_color_red_1000">#ff412522</color>
+  <color name="uitk_color_red_900">#ff412522</color>
   <color name="uitk_color_orange_10">#ffffe8bf</color>
   <color name="uitk_color_orange_20">#fffedfa6</color>
   <color name="uitk_color_orange_30">#fffed68e</color>
@@ -36,8 +35,7 @@
   <color name="uitk_color_orange_600">#ffe06519</color>
   <color name="uitk_color_orange_700">#ffd65513</color>
   <color name="uitk_color_orange_800">#ffcc440d</color>
-  <color name="uitk_color_orange_900">#ffc23407</color>
-  <color name="uitk_color_orange_1000">#ff362c24</color>
+  <color name="uitk_color_orange_900">#ff362c24</color>
   <color name="uitk_color_green_10">#ffd1f4c9</color>
   <color name="uitk_color_green_20">#ffb8e8b6</color>
   <color name="uitk_color_green_30">#ffa0dda4</color>
@@ -51,8 +49,7 @@
   <color name="uitk_color_green_600">#ff18723d</color>
   <color name="uitk_color_green_700">#ff0c5d2e</color>
   <color name="uitk_color_green_800">#ff014920</color>
-  <color name="uitk_color_green_900">#ff003912</color>
-  <color name="uitk_color_green_1000">#ff23342b</color>
+  <color name="uitk_color_green_900">#ff23342b</color>
   <color name="uitk_color_teal_10">#ffdaf0f0</color>
   <color name="uitk_color_teal_20">#ffc7e8e8</color>
   <color name="uitk_color_teal_30">#ffb4e0e1</color>
@@ -67,7 +64,6 @@
   <color name="uitk_color_teal_700">#ff005571</color>
   <color name="uitk_color_teal_800">#ff014156</color>
   <color name="uitk_color_teal_900">#ff00314c</color>
-  <color name="uitk_color_teal_1000">#ff1c373c</color>
   <color name="uitk_color_blue_10">#ffcbe7f9</color>
   <color name="uitk_color_blue_20">#ffb7def6</color>
   <color name="uitk_color_blue_30">#ffa4d5f4</color>
@@ -76,14 +72,12 @@
   <color name="uitk_color_blue_100">#ff64b1e4</color>
   <color name="uitk_color_blue_200">#ff4b9fd8</color>
   <color name="uitk_color_blue_300">#ff338dcd</color>
-  <color name="uitk_color_blue_400">#ff2d81bd</color>
+  <color name="uitk_color_blue_400">#ff2e84c6</color>
   <color name="uitk_color_blue_500">#ff2670a9</color>
   <color name="uitk_color_blue_600">#ff155c93</color>
   <color name="uitk_color_blue_700">#ff00477b</color>
-  <color name="uitk_color_blue_800">#ff0c3566</color>
-  <color name="uitk_color_blue_900">#ff002858</color>
-  <color name="uitk_color_blue_1000">#ff232f38</color>
-  <color name="uitk_color_blue_2000">#ff273c4f</color>
+  <color name="uitk_color_blue_800">#ff273c4d</color>
+  <color name="uitk_color_blue_900">#ff232f38</color>
   <color name="uitk_color_purple_10">#fff9e0f7</color>
   <color name="uitk_color_purple_20">#fff7d4f4</color>
   <color name="uitk_color_purple_30">#fff5c9f1</color>
@@ -98,7 +92,6 @@
   <color name="uitk_color_purple_700">#ff672e7a</color>
   <color name="uitk_color_purple_800">#ff53256d</color>
   <color name="uitk_color_purple_900">#ff3b1054</color>
-  <color name="uitk_color_purple_1000">#ff3a2d3e</color>
   <color name="uitk_color_grey_10">#fff2f4f6</color>
   <color name="uitk_color_grey_20">#ffeaedef</color>
   <color name="uitk_color_grey_30">#ffe0e4e9</color>

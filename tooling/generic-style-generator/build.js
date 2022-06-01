@@ -136,7 +136,7 @@ StyleDictionary.registerFilter({
   name: "uitk/filter/colors/palette-dark",
   matcher: function (token) {
     return (
-      /dark/i.test(token.filePath) && token.attributes.category === "palette"
+      /dark/.test(token.filePath) && token.attributes.category === "palette"
     );
   },
 });
@@ -170,14 +170,18 @@ StyleDictionary.registerFilter({
 // APPLY THE CONFIGURATION
 // IMPORTANT: the registration of custom transforms
 // needs to be done _before_ applying the configuration
-const StyleDictionaryExtended = StyleDictionary.extend(
-  __dirname + "/config.json"
+const StyleDictionaryExtendedLight = StyleDictionary.extend(
+  __dirname + "/config-light.json"
 );
 
-StyleDictionaryExtended.cleanAllPlatforms();
-
 // FINALLY, BUILD ALL THE PLATFORMS
-StyleDictionaryExtended.buildAllPlatforms();
+StyleDictionaryExtendedLight.buildAllPlatforms();
+
+// We have to split light and dark, otherwise Style Dictionary will warn us conflict token and override values internally
+const StyleDictionaryExtendedDark = StyleDictionary.extend(
+  __dirname + "/config-dark.json"
+);
+StyleDictionaryExtendedDark.buildAllPlatforms();
 
 console.log("\n==============================================");
 console.log("\nBuild completed!");
