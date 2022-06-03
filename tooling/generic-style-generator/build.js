@@ -5,16 +5,86 @@ console.log("\n==============================================");
 
 // REGISTER THE CUSTOM TRANSFORMS
 
-const { fileHeader, formattedVariables } = StyleDictionary.formatHelpers;
+const {
+  fileHeader,
+  formattedVariables,
+  createPropertyFormatter,
+  sortByReference, // This is not defined in TS type, but exported in lib JS and used by formattedVariables
+} = StyleDictionary.formatHelpers;
+
+const defaultFormatting = {
+  lineSeparator: "\n",
+};
+
+const removeDefaultSuffix = (name) => name.replace(/-default$/, "");
+const tokenWithoutDefaultNameSuffix = (token) => ({
+  ...token,
+  name: removeDefaultSuffix(token.name),
+});
+
+const removeAllDefaultFromVariableName = (name) =>
+  name.replace(/-default/g, "");
+
+/**
+ * Does mostly the same functionality as default `formattedVariables`, but
+ * removes any token name suffix with `-default`. Default is needed for Figma grouping,
+ * but we don't want them in output code like CSS.
+ */
+function customFormattedVariables({
+  format,
+  dictionary,
+  outputReferences = false,
+  formatting = {},
+  themeable = false,
+}) {
+  let { allTokens } = dictionary;
+
+  let { lineSeparator } = Object.assign({}, defaultFormatting, formatting);
+
+  // Some languages are imperative, meaning a variable has to be defined
+  // before it is used. If `outputReferences` is true, check if the token
+  // has a reference, and if it does send it to the end of the array.
+  // We also need to account for nested references, a -> b -> c. They
+  // need to be defined in reverse order: c, b, a so that the reference always
+  // comes after the definition
+  if (outputReferences) {
+    // note: using the spread operator here so we get a new array rather than
+    // mutating the original
+    allTokens = [...allTokens].sort(sortByReference(dictionary));
+  }
+
+  return allTokens
+    .map((token) =>
+      createPropertyFormatter({
+        outputReferences,
+        dictionary,
+        format,
+        formatting,
+        themeable,
+      })(tokenWithoutDefaultNameSuffix(token))
+    )
+    .filter(function (strVal) {
+      console.log({ strVal });
+      return !!strVal;
+    })
+    .join(lineSeparator);
+}
 
 StyleDictionary.registerFormat({
   name: "uitk/css/themes/all",
   formatter: function ({ dictionary, file, options }) {
     const { outputReferences } = options;
+    // console.log(dictionary);
     return (
       fileHeader({ file }) +
       ".uitk-light, .uitk-dark {\n" +
-      formattedVariables({ format: "css", dictionary, outputReferences }) +
+      removeAllDefaultFromVariableName(
+        formattedVariables({
+          format: "css",
+          dictionary,
+          outputReferences,
+        })
+      ) +
       "\n}\n"
     );
   },
@@ -27,7 +97,13 @@ StyleDictionary.registerFormat({
     return (
       fileHeader({ file }) +
       ".uitk-light {\n" +
-      formattedVariables({ format: "css", dictionary, outputReferences }) +
+      removeAllDefaultFromVariableName(
+        formattedVariables({
+          format: "css",
+          dictionary,
+          outputReferences,
+        })
+      ) +
       "\n}\n"
     );
   },
@@ -40,7 +116,13 @@ StyleDictionary.registerFormat({
     return (
       fileHeader({ file }) +
       ".uitk-dark {\n" +
-      formattedVariables({ format: "css", dictionary, outputReferences }) +
+      removeAllDefaultFromVariableName(
+        formattedVariables({
+          format: "css",
+          dictionary,
+          outputReferences,
+        })
+      ) +
       "\n}\n"
     );
   },
@@ -53,7 +135,13 @@ StyleDictionary.registerFormat({
     return (
       fileHeader({ file }) +
       ".uitk-density-touch, .uitk-density-low, .uitk-density-medium, .uitk-density-high {\n" +
-      formattedVariables({ format: "css", dictionary, outputReferences }) +
+      removeAllDefaultFromVariableName(
+        formattedVariables({
+          format: "css",
+          dictionary,
+          outputReferences,
+        })
+      ) +
       "\n}\n"
     );
   },
@@ -66,7 +154,13 @@ StyleDictionary.registerFormat({
     return (
       fileHeader({ file }) +
       ".uitk-density-medium {\n" +
-      formattedVariables({ format: "css", dictionary, outputReferences }) +
+      removeAllDefaultFromVariableName(
+        formattedVariables({
+          format: "css",
+          dictionary,
+          outputReferences,
+        })
+      ) +
       "\n}\n"
     );
   },

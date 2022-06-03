@@ -81,7 +81,9 @@
       },
       "cta": {
         "background": {
-          "value": "{color.blue.600}",
+          "default": {
+            "value": "{color.blue.600}"
+          },
           "active": {
             "value": "{color.blue.700}"
           },
@@ -96,7 +98,9 @@
           }
         },
         "foreground": {
-          "value": "{color.white}",
+          "default": {
+            "value": "{color.white}"
+          },
           "active": {
             "value": "{color.white}"
           },
@@ -113,7 +117,9 @@
       },
       "primary": {
         "background": {
-          "value": "{color.grey.300}",
+          "default": {
+            "value": "{color.grey.300}"
+          },
           "active": {
             "value": "{color.grey.70}"
           },
@@ -128,7 +134,9 @@
           }
         },
         "foreground": {
-          "value": "{color.white}",
+          "default": {
+            "value": "{color.white}"
+          },
           "active": {
             "value": "{color.grey.800}"
           },
@@ -145,7 +153,9 @@
       },
       "secondary": {
         "background": {
-          "value": "transparent",
+          "default": {
+            "value": "transparent"
+          },
           "active": {
             "value": "{color.grey.70}"
           },
@@ -160,7 +170,9 @@
           }
         },
         "foreground": {
-          "value": "{color.white}",
+          "default": {
+            "value": "{color.white}"
+          },
           "active": {
             "value": "{color.grey.800}"
           },

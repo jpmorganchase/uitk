@@ -2,7 +2,9 @@
   "actionable": {
     "primary": {
       "foreground": {
-        "value": "{palette.interact.primary.foreground}",
+        "default": {
+          "value": "{palette.interact.primary.foreground.default}"
+        },
         "hover": {
           "value": "{palette.interact.primary.foreground.hover}"
         },
@@ -14,7 +16,9 @@
         }
       },
       "background": {
-        "value": "{palette.interact.primary.background}",
+        "default": {
+          "value": "{palette.interact.primary.background.default}"
+        },
         "hover": {
           "value": "{palette.interact.primary.background.hover}"
         },
@@ -28,7 +32,9 @@
     },
     "cta": {
       "foreground": {
-        "value": "{palette.interact.cta.foreground}",
+        "default": {
+          "value": "{palette.interact.cta.foreground.default}"
+        },
         "hover": {
           "value": "{palette.interact.cta.foreground.hover}"
         },
@@ -40,7 +46,9 @@
         }
       },
       "background": {
-        "value": "{palette.interact.cta.background}",
+        "default": {
+          "value": "{palette.interact.cta.background.default}"
+        },
         "hover": {
           "value": "{palette.interact.cta.background.hover}"
         },
@@ -54,7 +62,9 @@
     },
     "secondary": {
       "foreground": {
-        "value": "{palette.interact.secondary.foreground}",
+        "default": {
+          "value": "{palette.interact.secondary.foreground.default}"
+        },
         "hover": {
           "value": "{palette.interact.secondary.foreground.hover}"
         },
@@ -66,7 +76,9 @@
         }
       },
       "background": {
-        "value": "{palette.interact.secondary.background}",
+        "default": {
+          "value": "{palette.interact.secondary.background.default}"
+        },
         "hover": {
           "value": "{palette.interact.secondary.background.hover}"
         },

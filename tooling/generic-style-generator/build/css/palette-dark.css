@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Wed, 01 Jun 2022 22:14:38 GMT
+ * Generated on Fri, 03 Jun 2022 22:55:06 GMT
  */
 
 .uitk-dark {
@@ -14,6 +14,7 @@
   --uitk-palette-navigate-background-active-low: transparent;
   --uitk-palette-navigate-background-low: transparent;
   --uitk-palette-measure-fill: linear-gradient(0deg, var(--uitk-palette-measure-fill-startColor) 0%, var(--uitk-palette-measure-fill-stopColor) 100%);
+  --uitk-palette-interact-secondary-background-disabled: transparent;
   --uitk-palette-interact-secondary-background: transparent;
   --uitk-palette-interact-background-low: transparent;
   --uitk-palette-rate-border: var(--uitk-color-grey-90);
@@ -54,10 +55,33 @@
   --uitk-palette-error-icon: var(--uitk-color-red-500);
   --uitk-palette-error-border: var(--uitk-color-red-500);
   --uitk-palette-error-background-high: var(--uitk-color-red-900);
+  --uitk-palette-interact-secondary-foreground-hover: var(--uitk-color-white);
+  --uitk-palette-interact-secondary-foreground-disabled: rgba(255, 255, 255, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-secondary-foreground-active-disabled: rgba(36, 37, 38, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-secondary-foreground-active: var(--uitk-color-grey-800);
   --uitk-palette-interact-secondary-foreground: var(--uitk-color-white);
+  --uitk-palette-interact-secondary-background-hover: var(--uitk-color-grey-200);
+  --uitk-palette-interact-secondary-background-active-disabled: rgba(180, 183, 190, var(--uitk-opacity-background));
+  --uitk-palette-interact-secondary-background-active: var(--uitk-color-grey-70);
+  --uitk-palette-interact-primary-foreground-hover: var(--uitk-color-white);
+  --uitk-palette-interact-primary-foreground-disabled: rgba(255, 255, 255, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-primary-foreground-active-disabled: rgba(36, 37, 38, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-primary-foreground-active: var(--uitk-color-grey-800);
   --uitk-palette-interact-primary-foreground: var(--uitk-color-white);
+  --uitk-palette-interact-primary-background-hover: var(--uitk-color-grey-200);
+  --uitk-palette-interact-primary-background-disabled: rgba(76, 80, 91, var(--uitk-opacity-background));
+  --uitk-palette-interact-primary-background-active-disabled: rgba(180, 183, 190, var(--uitk-opacity-background));
+  --uitk-palette-interact-primary-background-active: var(--uitk-color-grey-70);
   --uitk-palette-interact-primary-background: var(--uitk-color-grey-300);
+  --uitk-palette-interact-cta-foreground-hover: var(--uitk-color-white);
+  --uitk-palette-interact-cta-foreground-disabled: rgba(255, 255, 255, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-cta-foreground-active-disabled: rgba(255, 255, 255, var(--uitk-opacity-foreground));
+  --uitk-palette-interact-cta-foreground-active: var(--uitk-color-white);
   --uitk-palette-interact-cta-foreground: var(--uitk-color-white);
+  --uitk-palette-interact-cta-background-hover: var(--uitk-color-blue-500);
+  --uitk-palette-interact-cta-background-disabled: rgba(21, 92, 147, var(--uitk-opacity-background));
+  --uitk-palette-interact-cta-background-active-disabled: rgba(0, 71, 123, var(--uitk-opacity-background));
+  --uitk-palette-interact-cta-background-active: var(--uitk-color-blue-700);
   --uitk-palette-interact-cta-background: var(--uitk-color-blue-600);
   --uitk-palette-interact-foreground: var(--uitk-color-white);
   --uitk-palette-interact-border: var(--uitk-color-grey-90);
