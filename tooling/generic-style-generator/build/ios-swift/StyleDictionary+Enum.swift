@@ -4,18 +4,36 @@
 //
 
 // Do not edit directly
-// Generated on Wed, 01 Jun 2022 22:14:38 GMT
+// Generated on Fri, 03 Jun 2022 23:00:02 GMT
 
 
 import UIKit
 
 public enum StyleDictionaryEnum {
-    public static let uitkActionableCtaBackground = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
-    public static let uitkActionableCtaForeground = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
-    public static let uitkActionablePrimaryBackground = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
-    public static let uitkActionablePrimaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
-    public static let uitkActionableSecondaryBackground = transparent
-    public static let uitkActionableSecondaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkActionableCtaBackgroundActive = UIColor(red: 0.000, green: 0.278, blue: 0.482, alpha: 1)
+    public static let uitkActionableCtaBackgroundDefault = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
+    public static let uitkActionableCtaBackgroundDisabled = rgba(21, 92, 147, var(--uitk-opacity-background))
+    public static let uitkActionableCtaBackgroundHover = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
+    public static let uitkActionableCtaForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkActionableCtaForegroundDefault = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkActionableCtaForegroundDisabled = rgba(255, 255, 255, var(--uitk-opacity-foreground))
+    public static let uitkActionableCtaForegroundHover = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkActionablePrimaryBackgroundActive = UIColor(red: 0.380, green: 0.396, blue: 0.431, alpha: 1)
+    public static let uitkActionablePrimaryBackgroundDefault = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
+    public static let uitkActionablePrimaryBackgroundDisabled = rgba(197, 201, 208, var(--uitk-opacity-background))
+    public static let uitkActionablePrimaryBackgroundHover = UIColor(red: 0.851, green: 0.867, blue: 0.890, alpha: 1)
+    public static let uitkActionablePrimaryForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkActionablePrimaryForegroundDefault = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkActionablePrimaryForegroundDisabled = rgba(22, 22, 22, var(--uitk-opacity-foreground))
+    public static let uitkActionablePrimaryForegroundHover = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkActionableSecondaryBackgroundActive = UIColor(red: 0.380, green: 0.396, blue: 0.431, alpha: 1)
+    public static let uitkActionableSecondaryBackgroundDefault = transparent
+    public static let uitkActionableSecondaryBackgroundDisabled = transparent
+    public static let uitkActionableSecondaryBackgroundHover = UIColor(red: 0.851, green: 0.867, blue: 0.890, alpha: 1)
+    public static let uitkActionableSecondaryForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkActionableSecondaryForegroundDefault = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkActionableSecondaryForegroundDisabled = rgba(22, 22, 22, var(--uitk-opacity-foreground))
+    public static let uitkActionableSecondaryForegroundHover = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkColorBlack = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1)
     public static let uitkColorBlue10 = UIColor(red: 0.796, green: 0.906, blue: 0.976, alpha: 1)
     public static let uitkColorBlue100 = UIColor(red: 0.392, green: 0.694, blue: 0.894, alpha: 1)
@@ -139,13 +157,37 @@ public enum StyleDictionaryEnum {
     public static let uitkPaletteInteractBackgroundLow = transparent
     public static let uitkPaletteInteractBackgroundMedium = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
     public static let uitkPaletteInteractBorder = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
-    public static let uitkPaletteInteractCtaBackground = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
-    public static let uitkPaletteInteractCtaForeground = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkPaletteInteractCtaBackgroundActive = UIColor(red: 0.000, green: 0.278, blue: 0.482, alpha: 1)
+    public static let uitkPaletteInteractCtaBackgroundActiveDisabled = rgba(0, 71, 123, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractCtaBackgroundDefault = UIColor(red: 0.082, green: 0.361, blue: 0.576, alpha: 1)
+    public static let uitkPaletteInteractCtaBackgroundDisabled = rgba(21, 92, 147, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractCtaBackgroundHover = UIColor(red: 0.149, green: 0.439, blue: 0.663, alpha: 1)
+    public static let uitkPaletteInteractCtaForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkPaletteInteractCtaForegroundActiveDisabled = rgba(255, 255, 255, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractCtaForegroundDefault = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkPaletteInteractCtaForegroundDisabled = rgba(255, 255, 255, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractCtaForegroundHover = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
     public static let uitkPaletteInteractForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
-    public static let uitkPaletteInteractPrimaryBackground = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
-    public static let uitkPaletteInteractPrimaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
-    public static let uitkPaletteInteractSecondaryBackground = transparent
-    public static let uitkPaletteInteractSecondaryForeground = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkPaletteInteractPrimaryBackgroundActive = UIColor(red: 0.380, green: 0.396, blue: 0.431, alpha: 1)
+    public static let uitkPaletteInteractPrimaryBackgroundActiveDisabled = rgba(97, 101, 110, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractPrimaryBackgroundDefault = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
+    public static let uitkPaletteInteractPrimaryBackgroundDisabled = rgba(197, 201, 208, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractPrimaryBackgroundHover = UIColor(red: 0.851, green: 0.867, blue: 0.890, alpha: 1)
+    public static let uitkPaletteInteractPrimaryForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkPaletteInteractPrimaryForegroundActiveDisabled = rgba(22, 22, 22, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractPrimaryForegroundDefault = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkPaletteInteractPrimaryForegroundDisabled = rgba(22, 22, 22, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractPrimaryForegroundHover = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkPaletteInteractSecondaryBackgroundActive = UIColor(red: 0.380, green: 0.396, blue: 0.431, alpha: 1)
+    public static let uitkPaletteInteractSecondaryBackgroundActiveDisabled = rgba(97, 101, 110, var(--uitk-opacity-background))
+    public static let uitkPaletteInteractSecondaryBackgroundDefault = transparent
+    public static let uitkPaletteInteractSecondaryBackgroundDisabled = transparent
+    public static let uitkPaletteInteractSecondaryBackgroundHover = UIColor(red: 0.851, green: 0.867, blue: 0.890, alpha: 1)
+    public static let uitkPaletteInteractSecondaryForegroundActive = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1)
+    public static let uitkPaletteInteractSecondaryForegroundActiveDisabled = rgba(255, 255, 255, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractSecondaryForegroundDefault = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
+    public static let uitkPaletteInteractSecondaryForegroundDisabled = rgba(22, 22, 22, var(--uitk-opacity-foreground))
+    public static let uitkPaletteInteractSecondaryForegroundHover = UIColor(red: 0.086, green: 0.086, blue: 0.086, alpha: 1)
     public static let uitkPaletteMeasureBackground = UIColor(red: 0.773, green: 0.788, blue: 0.816, alpha: 1)
     public static let uitkPaletteMeasureBorder = UIColor(red: 0.518, green: 0.529, blue: 0.557, alpha: 1)
     public static let uitkPaletteMeasureFill = linear-gradient(0deg, var(--uitk-palette-measure-fill-startColor) 0%, var(--uitk-palette-measure-fill-stopColor) 100%)
