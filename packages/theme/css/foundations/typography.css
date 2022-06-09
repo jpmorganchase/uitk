@@ -2,7 +2,7 @@
 .uitk-density-low,
 .uitk-density-medium,
 .uitk-density-high {
-  --uitk-typography-fontFamily: uitk-sans;
+  --uitk-typography-fontFamily: sans-serif; /* WARNING: Do not merge - not currently working for theme editor */
 
   --uitk-typography-weight-light: 300;
   --uitk-typography-weight-regular: 400;

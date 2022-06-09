@@ -5,6 +5,12 @@
 }
 
 /* TODO: Make font size adjust to density */
+.uitkInnerFieldLabel-variant {
+  font-size: 14px;
+  font-weight: var(--uitk-typography-weight-bold);
+  border-bottom: var(--uitk-separable-borderWidth) var(--uitk-separable-borderStyle) var(--uitk-separable-borderColor-2);
+}
+
 .uitkInnerFieldLabel-large {
   font-size: 12px;
   font-weight: var(--uitk-typography-weight-semiBold);

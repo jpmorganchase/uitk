@@ -65,7 +65,7 @@ export function isRGBAColor(value: string): boolean {
   return false;
 }
 
-export function isColor(value: string): string {
+export function isColor(value: string): string | undefined {
   if (rgbaRegex.exec(value) || rgbRegex.exec(value)) {
     return value;
   }
@@ -76,7 +76,7 @@ export function isColor(value: string): string {
     return value;
   }
 
-  return "";
+  return undefined;
 }
 
 const StateIcon = (iconInitial: string) => {
@@ -98,27 +98,47 @@ const StateIcon = (iconInitial: string) => {
   }
 };
 
+const StateLabel = (props: { label: string }): JSX.Element => {
+  return <div className={"uitkFormLabel"}>{props.label}</div>;
+};
+
 export const ColorValueEditor = (props: ColorValueEditorProps): JSX.Element => {
+  const {
+    characteristicsView,
+    extractValue,
+    isStateValue,
+    label,
+    onUpdateJSON,
+    pathToUpdate,
+    scope,
+    uitkColorOverrides,
+    value,
+  } = props;
+
   const [selectedColor, setSelectedColor] = useState<Color | undefined>(
     undefined
   );
 
   const formFieldLabel: string = useMemo(() => {
-    return props.pathToUpdate.includes("fade")
-      ? `${capitalize(props.pathToUpdate.split("-")[0])} ${props.label}`
-      : `${capitalize(props.label)}` ?? "Color";
-  }, [props.pathToUpdate, props.label]);
+    return `${capitalize(label)}`;
+  }, [label]);
 
   useEffect(() => {
-    const updatedColor = Color.makeColorFromHex(
-      props.extractValue(
-        props.value.includes("fade")
-          ? props.value.split("-fade")[0]
-          : props.value
-      )
-    );
-    setSelectedColor(updatedColor);
-  }, [props.extractValue, props.value]);
+    if (value.includes("fade")) {
+      const color = value.split("-fade")[0];
+      const opacity = `uitk-opacity-${value.split("fade-")[1]}`;
+      const rgba = `${extractValue(color)
+        .replace("rgb(", "")
+        .replace(")", "")}, ${extractValue(opacity)}`;
+      setSelectedColor(
+        Color.makeColorFromRGB(
+          ...rgba.split(",").map((n) => parseFloat(n.replace(" ", "")))
+        )
+      );
+    } else {
+      setSelectedColor(Color.makeColorFromHex(extractValue(value)));
+    }
+  }, [extractValue, value]);
 
   const onSelect = (color: Color | undefined, finalSelection: boolean) => {
     finalSelection ? onColorClose(color) : setSelectedColor(color);
@@ -136,7 +156,7 @@ export const ColorValueEditor = (props: ColorValueEditorProps): JSX.Element => {
         const colorParts = colorName.match(/[a-z]+|[^a-z]+/gi);
         if (colorParts?.length === 2) {
           const token = `uitk-${colorParts[0].toLowerCase()}-${colorParts[1]}`;
-          props.onUpdateJSON(token, props.pathToUpdate, props.scope);
+          onUpdateJSON(token, pathToUpdate, scope);
         }
       } else {
         const { r, g, b, a } = { ...chosenColor.rgba };
@@ -147,14 +167,14 @@ export const ColorValueEditor = (props: ColorValueEditorProps): JSX.Element => {
           (a !== null ? `, ${a}` : ``) +
           `)`;
 
-        props.onUpdateJSON(newColor, props.pathToUpdate, props.scope);
+        onUpdateJSON(newColor, pathToUpdate, scope);
       }
       setSelectedColor(chosenColor);
     }
   };
 
   const onClear = () => {
-    const defaultColor = props.extractValue(props.value);
+    const defaultColor = extractValue(value);
     setSelectedColor(Color.makeColorFromHex(defaultColor));
   };
 
@@ -165,32 +185,28 @@ export const ColorValueEditor = (props: ColorValueEditorProps): JSX.Element => {
   return (
     <div
       className={cn(withBaseName("input"), {
-        [withBaseName("foundationColor")]: !props.characteristicsView,
-        [withBaseName("colorByState")]: props.isStateValue,
+        [withBaseName("foundationColor")]: !characteristicsView,
+        [withBaseName("colorByState")]: isStateValue,
       })}
     >
-      {!props.pathToUpdate.includes("fade") && (
+      {!pathToUpdate.includes("fade") && (
         <div
           className={cn({
             [withBaseName("jumpToFoundation")]:
-              props.characteristicsView &&
-              !props.pathToUpdate.includes("fade") &&
-              !props.isStateValue,
+              characteristicsView &&
+              !pathToUpdate.includes("fade") &&
+              !isStateValue,
             [withBaseName("jumpToFoundationNotColor")]:
-              props.characteristicsView && props.pathToUpdate.includes("fade"),
+              characteristicsView && pathToUpdate.includes("fade"),
           })}
         >
           <div
             className={cn(withBaseName("colorInput"), {
-              [withBaseName("colorStates")]: props.isStateValue,
+              [withBaseName("colorStates")]: isStateValue,
             })}
           >
-            {!props.isStateValue && (
-              <div className={cn(withBaseName("field"), "uitkFormLabel")}>
-                {formFieldLabel}
-              </div>
-            )}
-            {props.isStateValue && (
+            {!isStateValue && <StateLabel label={formFieldLabel} />}
+            {isStateValue && (
               <>
                 <Tooltip
                   {...getTooltipProps({
@@ -222,33 +238,24 @@ export const ColorValueEditor = (props: ColorValueEditorProps): JSX.Element => {
                 </div>
               </>
             )}
-            <div
-              className={cn({
-                [withBaseName("backgroundColorInput")]:
-                  formFieldLabel.includes("Background"),
-              })}
-            >
-              <ToolkitProvider density="high">
-                <ColorChooser
-                  color={selectedColor}
-                  displayHexOnly={!props.characteristicsView}
-                  hideLabel={props.isStateValue}
-                  showSwatches={props.characteristicsView ? true : false}
-                  showColorPicker={props.characteristicsView ? false : true}
-                  onSelect={onSelect}
-                  onClear={onClear}
-                  UITKColorOverrides={props.uitkColorOverrides}
-                />
-              </ToolkitProvider>
-            </div>
+            <ColorChooser
+              color={selectedColor}
+              displayHexOnly={!characteristicsView}
+              hideLabel={isStateValue}
+              showSwatches={characteristicsView ? true : false}
+              showColorPicker={characteristicsView ? false : true}
+              onSelect={onSelect}
+              onClear={onClear}
+              UITKColorOverrides={uitkColorOverrides}
+            />
           </div>
-          {props.characteristicsView && !props.isStateValue && (
+          {characteristicsView && !isStateValue && (
             <JumpToTokenButton
-              disabled={props.value.split("-").length < 2}
-              value={props.value.split("-").slice(1)[0]}
+              disabled={value.split("-").length < 2}
+              value={value.split("-").slice(1)[0]}
               sectionToJumpTo={UITK_FOUNDATIONS}
               pathname={"/foundations/color"}
-              search={`?open=${props.value.split("-").slice(1)[0]}`}
+              search={`?open=${value.split("-").slice(1)[0]}`}
             />
           )}
         </div>

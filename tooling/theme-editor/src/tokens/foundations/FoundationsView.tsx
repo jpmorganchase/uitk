@@ -22,12 +22,13 @@ interface FoundationsViewProps {
 
 export const foundationPathnames = [
   "/foundations/color",
-  "/foundations/icon",
+  "/foundations/delay",
+  "/foundations/opacity",
   "/foundations/shadow",
   "/foundations/size",
-  "/foundations/spacing",
   "/foundations/typography",
   "/foundations/zindex",
+  "/foundations/palette",
 ];
 
 export const FoundationsView = (props: FoundationsViewProps): ReactElement => {
@@ -44,12 +45,8 @@ export const FoundationsView = (props: FoundationsViewProps): ReactElement => {
           overflowMenu={true}
           value={props.selectedTabIndex}
         >
-          {UITK_FOUNDATIONS.filter((f) => f !== "fade").map((label, i) => (
-            <Tab
-              aria-label={label}
-              label={capitalize(label) as string}
-              key={i}
-            />
+          {UITK_FOUNDATIONS.map((label, i) => (
+            <Tab aria-label={label} label={capitalize(label)} key={i} />
           ))}
         </Tabstrip>
       </div>
