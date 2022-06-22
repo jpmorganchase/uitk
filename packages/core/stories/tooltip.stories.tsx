@@ -5,9 +5,12 @@ import {
   useForkRef,
   useTooltip,
   UseTooltipProps,
+  ToolkitProvider,
 } from "@jpmorganchase/uitk-core";
 import { ComponentMeta, ComponentStory, Story } from "@storybook/react";
 import { useCallback } from "react";
+
+import "./Tooltip.stories.newapp-tooltip.css";
 
 export default {
   title: "Core/Tooltip",
@@ -26,15 +29,37 @@ const Template: Story<TooltipProps & UseTooltipProps> = (props) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  title: "I am a tooltip",
+export const Default: Story<TooltipProps & UseTooltipProps> = (props) => {
+  const { getTriggerProps, getTooltipProps } = useTooltip(props);
+
+  const defaultProps = getTooltipProps({
+    title: "I am a tooltip",
+    state: "info",
+  });
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...defaultProps} />
+    </>
+  );
 };
 
-export const OpenTooltip = Template.bind({});
-OpenTooltip.args = {
-  title: "I am a tooltip",
-  open: true,
+export const OpenTooltip: Story<TooltipProps & UseTooltipProps> = (props) => {
+  const { getTriggerProps, getTooltipProps } = useTooltip(props);
+
+  const openProps = getTooltipProps({
+    title: "I am a tooltip",
+    state: "info",
+    open: true,
+  });
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...openProps} />
+    </>
+  );
 };
 
 export const ScrollTooltip: Story<TooltipProps & UseTooltipProps> = (props) => {
@@ -73,20 +98,65 @@ ScrollTooltip.args = {
   placement: "top",
 };
 
-export const ErrorTooltip: ComponentStory<typeof Tooltip> = Template.bind({});
-ErrorTooltip.args = {
-  title: "We found an issue",
-  state: "error",
+export const ErrorTooltip: Story<TooltipProps & UseTooltipProps> = (props) => {
+  const { state = "error", ...rest } = props;
+  const { getTriggerProps, getTooltipProps } = useTooltip(rest);
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...getTooltipProps({ title: "We found an issue", state })} />
+    </>
+  );
 };
 
-export const WarningTooltip: ComponentStory<typeof Tooltip> = Template.bind({});
-WarningTooltip.args = {
-  title: "Are you sure?",
-  state: "warning",
+export const WarningTooltip: Story<TooltipProps & UseTooltipProps> = (
+  props
+) => {
+  const { state = "warning", ...rest } = props;
+  const { getTriggerProps, getTooltipProps } = useTooltip(rest);
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...getTooltipProps({ title: "Are you sure?", state })} />
+    </>
+  );
 };
 
-export const SuccessTooltip: ComponentStory<typeof Tooltip> = Template.bind({});
-SuccessTooltip.args = {
-  title: "Well done",
-  state: "success",
+export const SuccessTooltip: Story<TooltipProps & UseTooltipProps> = (
+  props
+) => {
+  const { state = "success", ...rest } = props;
+  const { getTriggerProps, getTooltipProps } = useTooltip(rest);
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...getTooltipProps({ title: "Well done", state })} />
+    </>
+  );
 };
+
+const CustomStylingExample: Story<TooltipProps & UseTooltipProps> = (props) => {
+  const { title, state, ...rest } = props;
+  const { getTriggerProps, getTooltipProps } = useTooltip(rest);
+
+  return (
+    <>
+      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
+      <Tooltip {...getTooltipProps({ title, state })} />
+    </>
+  );
+};
+
+export const CustomStyling: ComponentStory<typeof Tooltip> = () => (
+  <>
+    <ToolkitProvider density="low" theme={["light", "newapp"]}>
+      <CustomStylingExample title="Tooltip text" state="info" />
+    </ToolkitProvider>
+    <ToolkitProvider density="touch" theme={["dark", "newapp"]}>
+      <CustomStylingExample title="Tooltip text" state="info" />
+    </ToolkitProvider>
+  </>
+);

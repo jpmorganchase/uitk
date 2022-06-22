@@ -7,7 +7,7 @@ import {
   CSSVariableTable,
   CharacteristicUsage,
 } from "css-variable-docgen-components";
-import { Default, OpenTooltip } from "./Tooltip.stories";
+import { CustomStyling } from "./tooltip.stories";
 
 <Meta
   title="Documentation/Core/Tooltip"
@@ -27,20 +27,6 @@ A Tooltip provides guidance to the user when something requires more explanation
   <Story id="core-tooltip--default" />
 </Canvas>
 
-## Open Tooltip
-
-<Canvas>
-  <Story id="core-tooltip--open-tooltip" />
-</Canvas>
-
-## Tooltips with state
-
-<Canvas>
-  <Story id="core-tooltip--error-tooltip" />
-  <Story id="core-tooltip--warning-tooltip" />
-  <Story id="core-tooltip--success-tooltip" />
-</Canvas>
-
 # API
 
 ```
@@ -58,3 +44,26 @@ import { Tooltip } from "@jpmorganchase/uitk-core";
 ## Characteristics Used
 
 <CharacteristicUsage of={Tooltip} />
+
+## Customising styles
+
+<Canvas>
+  <Story name="Custom Styling" decorators={[withFlexGap]}>
+    <CustomStyling />
+  </Story>
+</Canvas>
+
+```css
+/* from the file Tooltip.stories.newapp-tooltip.css */
+
+.uitk-light.uitk-newapp,
+.uitk-dark.uitk-newapp {
+  --uitkTooltip-borderColor: var(--uitk-color-teal-40);
+}
+
+.uitk-newapp .uitkTooltip-warning {
+  --uitkTooltip-icon-color: var(--uitk-color-purple-40);
+  --uitkTooltip-text-color: var(--uitk-color-purple-40);
+  --uitkTooltip-borderColor: var(--uitk-color-purple-40);
+}
+```
