@@ -154,9 +154,11 @@ export const CustomStyling: ComponentStory<typeof Tooltip> = () => (
   <>
     <ToolkitProvider density="low" theme={["light", "newapp"]}>
       <CustomStylingExample title="Tooltip text" state="info" />
+      <WarningTooltip />
     </ToolkitProvider>
     <ToolkitProvider density="touch" theme={["dark", "newapp"]}>
       <CustomStylingExample title="Tooltip text" state="info" />
+      <WarningTooltip />
     </ToolkitProvider>
   </>
 );

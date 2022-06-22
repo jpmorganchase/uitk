@@ -3,7 +3,13 @@
   --uitkTooltip-borderColor: var(--uitk-color-teal-40);
 }
 
-.uitk-newapp .uitkTooltip-warning {
+.uitk-newapp.uitk-light .uitkTooltip-warning {
+  --uitkTooltip-icon-color: var(--uitk-color-purple-400);
+  --uitkTooltip-text-color: var(--uitk-color-purple-400);
+  --uitkTooltip-borderColor: var(--uitk-color-purple-400);
+}
+
+.uitk-newapp.uitk-dark .uitkTooltip-warning {
   --uitkTooltip-icon-color: var(--uitk-color-purple-40);
   --uitkTooltip-text-color: var(--uitk-color-purple-40);
   --uitkTooltip-borderColor: var(--uitk-color-purple-40);
