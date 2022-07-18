@@ -125,12 +125,11 @@ const ListItemWithTooltip = forwardRef<
     setTooltipOpen(Boolean(itemProps.highlighted));
   }, [itemProps.highlighted]);
 
-
   const { getTooltipProps, getTriggerProps } = useTooltip({
     placement: "right",
     disabled: !item.disabled,
     onOpenChange: setTooltipOpen,
-    open: tooltipOpen
+    open: tooltipOpen,
   });
 
   const { ref: triggerRef, ...triggerProps } =
@@ -232,19 +231,19 @@ export const CalendarNavigation = forwardRef<
 
   const {
     getTriggerProps: getPreviousButtonProps,
-    getTooltipProps: getPreviousButtonTooltipProps
+    getTooltipProps: getPreviousButtonTooltipProps,
   } = useTooltip({
-    placement: 'top',
-    disabled: canNavigatePrevious
-  })
+    placement: "top",
+    disabled: canNavigatePrevious,
+  });
 
   const {
     getTriggerProps: getNextButtonProps,
-    getTooltipProps: getNextButtonTooltipProps
+    getTooltipProps: getNextButtonTooltipProps,
   } = useTooltip({
-    placement: 'top',
-    disabled: canNavigateNext
-  })
+    placement: "top",
+    disabled: canNavigateNext,
+  });
 
   return (
     <div
@@ -262,7 +261,7 @@ export const CalendarNavigation = forwardRef<
           variant: "secondary",
           onClick: handleNavigatePrevious,
           className: withBaseName("previousButton"),
-          focusableWhenDisabled: true
+          focusableWhenDisabled: true,
         })}
       >
         <ChevronLeftIcon
@@ -271,9 +270,11 @@ export const CalendarNavigation = forwardRef<
             .format("MMMM YYYY")}`}
         />
       </Button>
-      <Tooltip {...getPreviousButtonTooltipProps({
-        title: "Past dates are out of range"
-      })} />
+      <Tooltip
+        {...getPreviousButtonTooltipProps({
+          title: "Past dates are out of range",
+        })}
+      />
       <Dropdown<DropdownItem>
         source={months}
         id={monthDropdownId}
@@ -306,7 +307,7 @@ export const CalendarNavigation = forwardRef<
           variant: "secondary",
           onClick: handleNavigateNext,
           className: withBaseName("nextButton"),
-          focusableWhenDisabled: true
+          focusableWhenDisabled: true,
         })}
       >
         <ChevronRightIcon
@@ -315,9 +316,11 @@ export const CalendarNavigation = forwardRef<
             .format("MMMM YYYY")}`}
         />
       </Button>
-      <Tooltip {...getNextButtonTooltipProps({
-        title: "Future dates are out of range"
-      })} />
+      <Tooltip
+        {...getNextButtonTooltipProps({
+          title: "Future dates are out of range",
+        })}
+      />
     </div>
   );
 });

@@ -47,8 +47,8 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
 
     const { getTriggerProps, getTooltipProps } = useTooltip({
       disabled: !unselectableReason,
-      placement: 'top',
-      enterDelay: 300
+      placement: "top",
+      enterDelay: 300,
     });
 
     const { ref: triggerRef, ...triggerProps } = getTriggerProps<"button">({
@@ -63,7 +63,7 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
           [withBaseName("today")]: today,
           [withBaseName("unselectableLowEmphasis")]: unselectable === "low",
           [withBaseName("unselectableMediumEmphasis")]:
-          unselectable === "medium",
+            unselectable === "medium",
         },
         dayProps.className,
         className
