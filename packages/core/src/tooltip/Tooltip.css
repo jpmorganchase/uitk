@@ -69,7 +69,7 @@
 .uitkTooltip-icon {
   color: var(--uitkTooltip-icon-color, var(--tooltip-status-icon-color));
   fill: var(--uitkTooltip-icon-color, var(--tooltip-status-icon-color));
-  margin-right: 6px;
+  margin-right: var(--uitkTooltip-icon-marginRight, 6px);
   top: var(--icon-top);
   vertical-align: top;
 }

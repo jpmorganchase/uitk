@@ -17,18 +17,6 @@ export default {
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 
-const Template: Story<TooltipProps & UseTooltipProps> = (props) => {
-  const { title, state, ...rest } = props;
-  const { getTriggerProps, getTooltipProps } = useTooltip(rest);
-
-  return (
-    <>
-      <Button {...getTriggerProps<typeof Button>()}>Hover</Button>
-      <Tooltip {...getTooltipProps({ title, state })} />
-    </>
-  );
-};
-
 export const Default: Story<TooltipProps & UseTooltipProps> = (props) => {
   const { getTriggerProps, getTooltipProps } = useTooltip(props);
 
