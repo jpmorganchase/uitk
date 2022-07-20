@@ -1,0 +1,23 @@
+{
+  "name": "modular-template-uitk-app",
+  "version": "0.0.9",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "mkdir -p ../../dist/modular-template-uitk-app && cp -R ./public ./src README.md package.json ../../dist/modular-template-uitk-app/"
+  },
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "modular": {
+    "type": "template",
+    "templateType": "app"
+  },
+  "files": [
+    "README.md",
+    "public",
+    "src"
+  ],
+  "publishConfig": {
+    "directory": "../../dist/modular-template-uitk-app"
+  }
+}
