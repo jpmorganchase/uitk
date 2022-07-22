@@ -9,12 +9,14 @@ import {
 } from "rxjs";
 import {
   ColumnDefinition,
+  ColumnGroupDefinition,
   ColumnPinType,
   createHandler,
   createHook,
   GridBackgroundVariant,
   GridModel,
   RowKeyGetter,
+  RowSelectionMode,
 } from "../grid";
 import React from "react";
 import {
@@ -36,6 +38,15 @@ export type ValueGetterFn<TRowData, TCellValue> = (
 export type RowKeyGetterFn<TRowData> = (rowData: TRowData) => string;
 
 export type ColFilterFn<TRowData> = (rowData: TRowData) => boolean;
+
+export interface ColGroupDef<TRowData = any, TColumnData = any> {
+  key: string;
+  columnKeys: string[];
+  title: string;
+  // TODO: headerComponent?:
+  // TODO: headerClassName?: string;
+  pinned?: ColumnPinType;
+}
 
 export interface ColDef<TRowData = any, TColumnData = any> {
   key: string;
@@ -159,6 +170,14 @@ export class DataGridColumn<TRowData = any, TColumnData = any> {
   }
 }
 
+export class DataGridColumnGroup<TRowData = any, TColumnData = any> {
+  public readonly definition: ColGroupDef<TRowData, TColumnData>;
+  // TODO data?
+  public constructor(definition: ColGroupDef<TRowData, TColumnData>) {
+    this.definition = definition;
+  }
+}
+
 export interface DataGridModelEvents<TRowData> {
   columnVisible?: () => void;
   columnPinned?: () => void;
@@ -267,16 +286,25 @@ export function flattenVisibleRows<TRowData>(
   return visibleRows;
 }
 
-export class DataGridModel<TRowData = any> {
+export class DataGridModel<TRowData = any, TColumnData = any> {
   private readonly rowKeyGetter: RowKeyGetterFn<TRowData>;
   private readonly data$: BehaviorSubject<TRowData[]>;
+  private readonly showCheckboxes$: BehaviorSubject<boolean | undefined>;
 
+  private readonly columnGroupDefinitions$: BehaviorSubject<
+    ColGroupDef<TRowData>[] | undefined
+  >;
   private readonly columnDefinitions$: BehaviorSubject<ColDef<TRowData>[]>;
   private readonly leafRows$: BehaviorSubject<LeafRowNode<TRowData>[]>;
   private readonly filteredLeafRows$: BehaviorSubject<LeafRowNode<TRowData>[]>; // Filtered but not sorted
   private readonly sortedLeafRows$: BehaviorSubject<LeafRowNode<TRowData>[]>; // Filtered and sorted
 
-  private readonly columns$: BehaviorSubject<DataGridColumn[]>;
+  private readonly columns$: BehaviorSubject<
+    DataGridColumn<TRowData, TColumnData>[]
+  >;
+  private readonly columnGroups$: BehaviorSubject<
+    DataGridColumnGroup<TRowData, TColumnData>[] | undefined
+  >;
   private readonly topLevelRows$: BehaviorSubject<RowNode<TRowData>[]>;
   private readonly visibleRows$: BehaviorSubject<RowNode<TRowData>[]>;
 
@@ -302,10 +330,16 @@ export class DataGridModel<TRowData = any> {
   private readonly rowDividerField$: BehaviorSubject<
     keyof TRowData | undefined
   >;
+  private readonly rowSelectionMode$: BehaviorSubject<
+    RowSelectionMode | undefined
+  >;
 
   public readonly gridModel: GridModel<RowNode<TRowData>>;
   public readonly setRowData: (data: TRowData[]) => void;
   public readonly setColumnDefs: (columnDefs: ColDef<TRowData>[]) => void;
+  public readonly setColumnGroupDefs: (
+    columnGroupDefs: ColGroupDef<TRowData>[] | undefined
+  ) => void;
 
   public readonly setRowGrouping: (
     rowGrouping: DataGridRowGroupSettings<TRowData> | undefined
@@ -334,8 +368,13 @@ export class DataGridModel<TRowData = any> {
   public readonly setRowDividerField: (
     field: keyof TRowData | undefined
   ) => void;
+  public readonly setRowSelectionMode: (
+    rowSelectionMode: RowSelectionMode | undefined
+  ) => void;
 
   public readonly expandCollapseNode: (event: ExpandCollapseEvent) => void;
+
+  public readonly setShowCheckboxes: (showCheckboxes?: boolean) => void;
 
   public constructor(options: DataGridModelOptions<TRowData>) {
     this.rowKeyGetter = options.rowKeyGetter;
@@ -344,17 +383,29 @@ export class DataGridModel<TRowData = any> {
     this.columnDefinitions$ = new BehaviorSubject<ColDef<TRowData>[]>(
       options.columnDefinitions || []
     );
+    this.columnGroupDefinitions$ = new BehaviorSubject<
+      ColGroupDef<TRowData>[] | undefined
+    >(undefined);
     this.setColumnDefs = createHandler(this.columnDefinitions$);
+    this.setColumnGroupDefs = createHandler(this.columnGroupDefinitions$);
     this.rowGrouping$ = new BehaviorSubject<
       DataGridRowGroupSettings<TRowData> | undefined
     >(undefined);
     this.setRowGrouping = createHandler(this.rowGrouping$);
     this.useRowGrouping = createHook(this.rowGrouping$);
 
+    this.showCheckboxes$ = new BehaviorSubject<boolean | undefined>(undefined);
+    this.setShowCheckboxes = createHandler(this.showCheckboxes$);
+
     this.leafRows$ = new BehaviorSubject<LeafRowNode<TRowData>[]>([]); // TODO init
     this.filteredLeafRows$ = new BehaviorSubject<LeafRowNode<TRowData>[]>([]);
     this.sortedLeafRows$ = new BehaviorSubject<LeafRowNode<TRowData>[]>([]);
-    this.columns$ = new BehaviorSubject<DataGridColumn[]>([]); // TODO
+    this.columns$ = new BehaviorSubject<
+      DataGridColumn<TRowData, TColumnData>[]
+    >([]); // TODO
+    this.columnGroups$ = new BehaviorSubject<
+      DataGridColumnGroup<TRowData, TColumnData>[] | undefined
+    >(undefined);
     this.showTreeLines$ = new BehaviorSubject<boolean>(false);
     this.useShowTreeLines = createHook(this.showTreeLines$);
     this.setShowTreeLines = createHandler(this.showTreeLines$);
@@ -371,11 +422,20 @@ export class DataGridModel<TRowData = any> {
     this.expandEvents$ = new Subject<ExpandCollapseEvent>();
     this.expandCollapseNode = createHandler(this.expandEvents$);
 
+    this.rowSelectionMode$ = new BehaviorSubject<RowSelectionMode | undefined>(
+      undefined
+    );
+    this.setRowSelectionMode = createHandler(this.rowSelectionMode$);
+
     const getRowKey: RowKeyGetter<RowNode<TRowData>> = (row, index) => {
       return row ? row.key : `row_${index}`;
     };
 
     this.gridModel = new GridModel<RowNode<TRowData>>(getRowKey);
+
+    this.showCheckboxes$.subscribe((showCheckboxes) => {
+      this.gridModel.setShowCheckboxes(showCheckboxes);
+    });
 
     combineLatest([this.columnDefinitions$, this.rowGrouping$]).subscribe(
       ([columnDefinitions, rowGrouping]) => {
@@ -399,6 +459,31 @@ export class DataGridModel<TRowData = any> {
       }
     );
 
+    combineLatest([this.columnGroupDefinitions$, this.rowGrouping$]).subscribe(
+      ([columnGroupDefinitions, rowGrouping]) => {
+        const columnGroups = columnGroupDefinitions
+          ? columnGroupDefinitions.map((colGroupDef) => {
+              return new DataGridColumnGroup<TRowData, TColumnData>(
+                colGroupDef
+              );
+            })
+          : undefined;
+        if (columnGroups && rowGrouping && rowGrouping.groupLevels.length > 0) {
+          const groupColumnGroup = new DataGridColumnGroup<
+            TRowData,
+            TColumnData
+          >({
+            key: "groupKey",
+            pinned: "left",
+            title: "",
+            columnKeys: ["group"],
+          });
+          columnGroups.unshift(groupColumnGroup);
+        }
+        this.columnGroups$.next(columnGroups);
+      }
+    );
+
     this.columns$.subscribe((columns) => {
       const gridColumnDefinitions = columns.map((column) => {
         const columnDefinition: ColumnDefinition<RowNode<TRowData>> = {
@@ -416,6 +501,24 @@ export class DataGridModel<TRowData = any> {
       this.gridModel.setColumnDefinitions(gridColumnDefinitions);
     });
 
+    this.columnGroups$.subscribe((columnGroups) => {
+      const gridColumnGroupDefinitions =
+        columnGroups != undefined
+          ? columnGroups.map((colGroup) => {
+              const columnGroupDefinition: ColumnGroupDefinition<
+                RowNode<TRowData>
+              > = {
+                key: colGroup.definition.key,
+                title: colGroup.definition.title,
+                pinned: colGroup.definition.pinned,
+                columnKeys: colGroup.definition.columnKeys,
+              };
+              return columnGroupDefinition;
+            })
+          : undefined;
+      this.gridModel.setColumnGroupDefinitions(gridColumnGroupDefinitions);
+    });
+
     this.filterFn$ = new BehaviorSubject<FilterFn<TRowData> | undefined>(
       undefined
     );
@@ -425,6 +528,12 @@ export class DataGridModel<TRowData = any> {
     this.setSortFn = createHandler(this.sortFn$);
     this.sortSettings$ = new BehaviorSubject<SortInfo[] | undefined>(undefined);
     this.setSortSettings = createHandler(this.sortSettings$);
+
+    this.rowSelectionMode$.subscribe((rowSelectionMode) => {
+      this.gridModel.setRowSelectionMode(
+        rowSelectionMode ? rowSelectionMode : "none"
+      );
+    });
 
     combineLatest([this.columns$, this.sortSettings$]).subscribe(
       ([columns, sortSettings]) => {

@@ -18,7 +18,7 @@ export type RowKeyGetter<T> = (row: T | undefined, index: number) => string;
 
 export interface GridData<T> {
   getKey: RowKeyGetter<T>;
-  columnDefinitions?: ColumnDefinition<T>[];
+  columnDefinitions: ColumnDefinition<T>[];
   columnGroupDefinitions?: ColumnGroupDefinition<T>[];
   showFooter?: boolean;
   showTree?: boolean;

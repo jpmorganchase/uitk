@@ -26,33 +26,23 @@ const columnGroups: ColumnGroupDefinition<BlotterRecord>[] = [
   {
     key: "group1",
     title: "Group One",
-    columns: [
-      createTextColumn("identifier", "Identifier", "identifier", 100),
-      createTextColumn("client", "Client", "client", 100),
-    ],
+    columnKeys: ["identifier", "client"],
     pinned: "left",
   },
   {
     key: "group2",
     title: "Group Two",
-    columns: [
-      createTextColumn("side", "Side", "side", 200),
-      createTextColumn("deskOwner", "Desk Owner", "deskOwner", 200),
-      createTextColumn("status", "Status", "status", 200),
-    ],
+    columnKeys: ["side", "deskOwner", "status"],
   },
   {
     key: "group3",
     title: "Group Three",
-    columns: [createTextColumn("flag", "Flag", "flag", 200)],
+    columnKeys: ["flag"],
   },
   {
     key: "group4",
     title: "Group Four",
-    columns: [
-      createNumericColumn("quantity", "Quantity", "quantity", 100),
-      createNumericColumn("averagePx", "Average Px", "averagePx", 100),
-    ],
+    columnKeys: ["quantity", "averagePx"],
     pinned: "right",
   },
 ];
@@ -63,31 +53,27 @@ const columnDefinitions: ColumnDefinition<BlotterRecord>[] = [
   createTextColumn("side", "Side", "side", 100),
   createTextColumn("deskOwner", "Desk Owner", "deskOwner", 100),
   createTextColumn("status", "Status", "status", 100),
+  createTextColumn("flag", "Flag", "flag", 200),
   createNumericColumn("quantity", "Quantity", "quantity", 80),
+  createNumericColumn("averagePx", "Average Px", "averagePx", 100),
 ];
 
-const allEditableColumnGroups = columnGroups.map((columnGroup) => ({
-  ...columnGroup,
-  columns: columnGroup.columns.map((column) => ({
-    ...column,
+const allEditableColumnDefinitions = columnDefinitions.map((colDef) => {
+  return {
+    ...colDef,
     isEditable: true,
-  })),
-}));
+  };
+});
 
-const mixedEditableColumnGroups = columnGroups.map(
-  (columnGroup, groupIndex) => {
-    if (groupIndex === 1) {
-      return {
-        ...columnGroup,
-        columns: columnGroup.columns.map((column) => ({
-          ...column,
-          isEditable: true,
-        })),
-      };
-    }
-    return columnGroup;
+const mixedEditableColumnDefinitions = columnDefinitions.map((colDef) => {
+  if (!columnGroups[1].columnKeys.includes(colDef.key)) {
+    return colDef;
   }
-);
+  return {
+    ...colDef,
+    isEditable: true,
+  };
+});
 
 interface BlotterStoryProps {
   columnGroupDefinitions: ColumnGroupDefinition<BlotterRecord>[];
@@ -102,7 +88,12 @@ const ReadonlyGridTemplate: Story = () => {
   );
 
   return (
-    <Grid data={data} columnGroupDefinitions={columnGroups} getKey={getKey} />
+    <Grid
+      data={data}
+      columnDefinitions={columnDefinitions}
+      columnGroupDefinitions={columnGroups}
+      getKey={getKey}
+    />
   );
 };
 
@@ -114,7 +105,8 @@ const AllEditableGridTemplate: Story = () => {
   return (
     <Grid
       data={data}
-      columnGroupDefinitions={allEditableColumnGroups}
+      columnDefinitions={allEditableColumnDefinitions}
+      columnGroupDefinitions={columnGroups}
       getKey={getKey}
     />
   );
@@ -128,7 +120,8 @@ const MixedEditableGridTemplate: Story = () => {
   return (
     <Grid
       data={data}
-      columnGroupDefinitions={mixedEditableColumnGroups}
+      columnDefinitions={mixedEditableColumnDefinitions}
+      columnGroupDefinitions={columnGroups}
       getKey={getKey}
     />
   );

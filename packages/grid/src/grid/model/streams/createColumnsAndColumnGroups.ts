@@ -13,7 +13,7 @@ import {
 import { AutoSizingHeaderCell } from "../../components";
 
 export function createColumnsAndColumnGroups<T>(
-  columnDefinitions: BehaviorSubject<ColumnDefinition<T>[] | undefined>,
+  columnDefinitions: BehaviorSubject<ColumnDefinition<T>[]>,
   columnGroupDefinitions: BehaviorSubject<
     ColumnGroupDefinition<T>[] | undefined
   >
@@ -35,10 +35,19 @@ export function createColumnsAndColumnGroups<T>(
         const rightColumns: Column<T>[] = [];
         const middleColumns: Column<T>[] = [];
 
+        const columnDefsByKey = new Map<string, ColumnDefinition<T>>(
+          columnDefinitions.map((colDef) => [colDef.key, colDef])
+        );
+
         columnGroupDefinitions.forEach((groupDef) => {
-          const columns: Column<T>[] = groupDef.columns.map(
-            (colDef) => new Column(colDef)
-          );
+          const columns: Column<T>[] = [];
+          groupDef.columnKeys.forEach((columnKey) => {
+            const columnDef = columnDefsByKey.get(columnKey);
+            if (columnDef) {
+              const column = new Column(columnDef);
+              columns.push(column);
+            }
+          });
           if (columns.length > 0) {
             columns[columns.length - 1].separator$.next("groupEdge");
           }
@@ -72,10 +81,6 @@ export function createColumnsAndColumnGroups<T>(
         const leftColumns: Column<T>[] = [];
         const rightColumns: Column<T>[] = [];
         const middleColumns: Column<T>[] = [];
-
-        if (!columnDefinitions) {
-          columnDefinitions = [];
-        }
 
         columnDefinitions.forEach((colDef) => {
           const column = new Column(colDef);
@@ -160,7 +165,7 @@ export function addAutoColumnsAndGroups<T>(
               key: "rowSelectorGroup",
               pinned: "left",
               title: "",
-              columns: [checkboxColumnDefinition],
+              columnKeys: [checkboxColumnDefinition.key],
             });
             leftColumnGroups = [checkboxColumnGroup, ...leftColumnGroups];
           }
@@ -183,7 +188,8 @@ export function addAutoColumnsAndGroups<T>(
             const emptyColumnGroup = new ColumnGroup({
               key: "emptyColumnGroup",
               title: "",
-              columns: [emptyColumnDefinition],
+              // columns: [emptyColumnDefinition],
+              columnKeys: [emptyColumnDefinition.key],
             });
             middleColumnGroups = [...middleColumnGroups, emptyColumnGroup];
           }

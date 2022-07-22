@@ -1,5 +1,10 @@
 import { BehaviorSubject } from "rxjs";
-import { createHandler, createHook, GridBackgroundVariant } from "../../../src";
+import {
+  createHandler,
+  createHook,
+  GridBackgroundVariant,
+  RowSelectionMode,
+} from "../../../src";
 import { Card, Checkbox, GridItem, GridLayout } from "@jpmorganchase/uitk-core";
 import {
   ToggleButton,
@@ -48,7 +53,14 @@ export class DataGridSettingsModel {
   );
 
   public readonly frame = new BoolField("Frame");
+  public readonly columnGrouping = new BoolField("Column Grouping");
   public readonly rowDividers = new BoolField("Row dividers (by location)");
+  public readonly rowSelectionMode = new EnumField<RowSelectionMode>(
+    "Row Selection Mode",
+    ["none", "single", "multi"],
+    "none"
+  );
+  public readonly showCheckboxes = new BoolField("Show checkboxes");
 
   constructor() {}
 }
@@ -108,7 +120,7 @@ export const DataGridSettings = function DataGridSettings(
 
   return (
     <Card className="dataGridSettings">
-      <GridLayout columns={4}>
+      <GridLayout columns={5}>
         <GridItem colSpan={2}>
           <ToggleButtonField model={model.backgroundVariant} />
         </GridItem>
@@ -116,7 +128,16 @@ export const DataGridSettings = function DataGridSettings(
           <CheckboxField model={model.frame} />
         </GridItem>
         <GridItem>
+          <CheckboxField model={model.columnGrouping} />
+        </GridItem>
+        <GridItem>
           <CheckboxField model={model.rowDividers} />
+        </GridItem>
+        <GridItem colSpan={2}>
+          <ToggleButtonField model={model.rowSelectionMode} />
+        </GridItem>
+        <GridItem>
+          <CheckboxField model={model.showCheckboxes} />
         </GridItem>
       </GridLayout>
     </Card>

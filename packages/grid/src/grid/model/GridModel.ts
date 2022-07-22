@@ -161,7 +161,7 @@ export interface IGridModel<TRowData> {
   // TODO checkboxes can be radio buttons in single-row mode. Rename this.
   readonly setShowCheckboxes: (showCheckboxes?: boolean) => void;
   readonly setColumnDefinitions: (
-    columnDefinitions?: ColumnDefinition<TRowData>[]
+    columnDefinitions: ColumnDefinition<TRowData>[]
   ) => void;
   readonly setData: (data: TRowData[]) => void;
   readonly setColumnGroupDefinitions: (
@@ -229,7 +229,7 @@ export class GridModel<TRowData = any> implements IGridModel<TRowData> {
   public readonly setShowTree: (showTree?: boolean) => void;
   public readonly setShowCheckboxes: (showCheckboxes?: boolean) => void;
   public readonly setColumnDefinitions: (
-    columnDefinitions?: ColumnDefinition<TRowData>[]
+    columnDefinitions: ColumnDefinition<TRowData>[]
   ) => void;
   public readonly setData: (data: TRowData[]) => void;
   public readonly setColumnGroupDefinitions: (
@@ -307,7 +307,7 @@ export class GridModel<TRowData = any> implements IGridModel<TRowData> {
     const scrollLeft$ = new BehaviorSubject<number>(0);
     const scrollTop$ = new BehaviorSubject<number>(0);
     const columnDefinitions$ = new BehaviorSubject<
-      ColumnDefinition<TRowData>[] | undefined
+      ColumnDefinition<TRowData>[]
     >([]);
     const data$ = new BehaviorSubject<TRowData[]>([]);
     const backgroundVariant$ = new BehaviorSubject<

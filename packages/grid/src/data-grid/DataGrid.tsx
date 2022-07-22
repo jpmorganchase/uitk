@@ -10,9 +10,14 @@ import {
   RowKeyGetterFn,
   RowNode,
   SortFn,
+  ColGroupDef,
 } from "./DataGridModel";
 import { SortInfo } from "./sort";
-import { ColumnPinType, GridBackgroundVariant } from "../grid";
+import {
+  ColumnPinType,
+  GridBackgroundVariant,
+  RowSelectionMode,
+} from "../grid";
 
 export interface DataGridRowGroupCellComponentProps<
   TRowData,
@@ -63,7 +68,7 @@ export interface DataGridRowSettings<T> {
 
 // Grid styling
 
-export interface DataGridProps<TRowData = any> {
+export interface DataGridProps<TRowData = any, TColumnData = any> {
   className?: string;
   rowDividers?: DataGridRowDividerVariant;
   backgroundVariant?: GridBackgroundVariant;
@@ -72,7 +77,8 @@ export interface DataGridProps<TRowData = any> {
 
   rowKeyGetter: RowKeyGetterFn<TRowData>;
   data: TRowData[];
-  columnDefinitions: ColDef<TRowData>[];
+  columnDefinitions: ColDef<TRowData, TColumnData>[];
+  columnGroupDefinitions: ColGroupDef<TRowData, TColumnData>[] | undefined;
   // TODO make this a component?
   leafNodeGroupNameField?: keyof TRowData; // Which field to show in the group/tree column for leaf nodes
   showTreeLines?: boolean;
@@ -90,6 +96,10 @@ export interface DataGridProps<TRowData = any> {
 
   // Filtering
   filterFn?: (rowData: TRowData) => boolean;
+
+  // Selection
+  rowSelectionMode?: RowSelectionMode;
+  showCheckboxes?: boolean;
 }
 
 export const DataGrid = function <TRowData = any>(
@@ -103,6 +113,7 @@ export const DataGrid = function <TRowData = any>(
     showTreeLines,
     leafNodeGroupNameField,
     columnDefinitions,
+    columnGroupDefinitions,
     events,
     filterFn,
     sortFn,
@@ -110,6 +121,8 @@ export const DataGrid = function <TRowData = any>(
     backgroundVariant,
     isFramed,
     rowDividerField,
+    rowSelectionMode,
+    showCheckboxes,
   } = props;
 
   const [dataGridModel] = useState<DataGridModel<TRowData>>(
@@ -131,6 +144,7 @@ export const DataGrid = function <TRowData = any>(
 
   dataGridModel.setRowData(data);
   dataGridModel.setColumnDefs(columnDefinitions);
+  dataGridModel.setColumnGroupDefs(columnGroupDefinitions);
   dataGridModel.setRowGrouping(rowGrouping);
   dataGridModel.setShowTreeLines(showTreeLines || false);
   dataGridModel.setLeafNodeGroupNameField(leafNodeGroupNameField);
@@ -140,6 +154,8 @@ export const DataGrid = function <TRowData = any>(
   dataGridModel.setBackgroundVariant(backgroundVariant);
   dataGridModel.setIsFramed(isFramed);
   dataGridModel.setRowDividerField(rowDividerField);
+  dataGridModel.setRowSelectionMode(rowSelectionMode);
+  dataGridModel.setShowCheckboxes(showCheckboxes);
 
   return (
     <DataGridContext.Provider value={contextValue}>

@@ -8,7 +8,7 @@ import {
 } from "./GridModel";
 import { HeaderCellProps } from "../components";
 
-export type ColumnPinType = "left" | "right" | null;
+export type ColumnPinType = "left" | "right";
 
 export type CellValueGetter<TRowData, TCellValue> = (
   rowData: TRowData

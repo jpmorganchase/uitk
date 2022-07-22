@@ -1,6 +1,7 @@
 import { Story } from "@storybook/react";
 import {
   ColDef,
+  ColGroupDef,
   DataGrid,
   DataGridRowGroupLevelSettings,
   DataGridRowGroupSettings,
@@ -154,6 +155,25 @@ const columnDefinitions: ColDef<Investor>[] = [
   },
 ];
 
+const columnGroupDefinitions: ColGroupDef<Investor>[] = [
+  {
+    key: "groupOne",
+    title: "Group One",
+    pinned: "left",
+    columnKeys: ["name"],
+  },
+  {
+    key: "groupTwo",
+    title: "Group Two",
+    columnKeys: ["amount", "addedInvestors", "location"],
+  },
+  {
+    key: "groupThree",
+    title: "Group Three",
+    columnKeys: ["strategy", "cohort", "notes"],
+  },
+];
+
 const filterColumns: FilterColumn<Investor>[] = columnDefinitions.map((c) => {
   return {
     name: c.title || c.field,
@@ -206,8 +226,10 @@ const DataGridStoryTemplate: Story<DataGridStoryProps> = (props) => {
   const rowDividerField = dataGridSettingsModel.rowDividers.useValue()
     ? "location"
     : undefined;
-
-  console.log(`Rendering with rowDividerField = ${rowDividerField}`);
+  const showColumnGroups = dataGridSettingsModel.columnGrouping.useValue();
+  const colGroupDefs = showColumnGroups ? columnGroupDefinitions : undefined;
+  const rowSelectionMode = dataGridSettingsModel.rowSelectionMode.useValue();
+  const showCheckboxes = dataGridSettingsModel.showCheckboxes.useValue();
 
   return (
     <div className={"gridStory"}>
@@ -217,6 +239,7 @@ const DataGridStoryTemplate: Story<DataGridStoryProps> = (props) => {
         rowKeyGetter={rowKeyGetter}
         data={dummyInvestors}
         columnDefinitions={columnDefinitions}
+        columnGroupDefinitions={colGroupDefs}
         filterFn={filterFn}
         sortFn={sortFn}
         sortSettings={sortSettings}
@@ -225,6 +248,8 @@ const DataGridStoryTemplate: Story<DataGridStoryProps> = (props) => {
         backgroundVariant={backgroundVariant}
         isFramed={isFramed}
         rowDividerField={rowDividerField}
+        rowSelectionMode={rowSelectionMode}
+        showCheckboxes={showCheckboxes}
       />
       <DataGridSettings model={dataGridSettingsModel} />
     </div>

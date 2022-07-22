@@ -9,7 +9,7 @@ import {
 } from "@jpmorganchase/uitk-grid";
 
 export default {
-  title: "Lab/Grid/Vuu",
+  title: "Grid/Vuu",
   component: GridVuu,
 };
 
