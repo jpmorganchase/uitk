@@ -260,6 +260,5 @@
 }
 
 .uitkFormField-labelLeft > .uitkFormLabel ~ :not(.uitkFormFieldHelperText) {
-    background: var(--uitkFormField-background, var(--formField-background));
+  background: var(--uitkFormField-background, var(--formField-background));
 }
-
