@@ -29,12 +29,13 @@ const msCollapseAnimationDuration = 150;
 // Collapsing - the section is about to start collapsing, the height is set to current height
 //   (auto has to be replaced by a number, then the component has to be rendered, then the value can
 //    be set to 0)
-type State =
-  | "collapsed"
-  | "measuring"
-  | "expanding"
-  | "expanded"
-  | "collapsing";
+enum AccordionState {
+  COLLAPSING = "collapsing",
+  COLLAPSED = "collapsed",
+  MEASURING = "measuring",
+  EXPANDING = "expanding",
+  EXPANDED = "expanded",
+}
 
 export const AccordionDetails = forwardRef<
   HTMLDivElement,
@@ -48,8 +49,8 @@ export const AccordionDetails = forwardRef<
   const contentRef = useRef<HTMLDivElement>(null);
   const forkedRef = useForkRef(ref, rootRef);
 
-  const [state, setState] = useState<State>(
-    isExpanded ? "expanded" : "collapsed"
+  const [state, setState] = useState<AccordionState>(
+    isExpanded ? AccordionState.EXPANDED : AccordionState.COLLAPSED
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -57,34 +58,34 @@ export const AccordionDetails = forwardRef<
       return;
     }
     if (isExpanded) {
-      if (state === "collapsed") {
-        setState("measuring");
-      } else if (state === "measuring") {
+      if (state === AccordionState.COLLAPSED) {
+        setState(AccordionState.MEASURING);
+      } else if (state === AccordionState.MEASURING) {
         rootRef.current.style.height = `${
           contentRef.current!.getBoundingClientRect().height
         }px`;
-        setState("expanding");
-      } else if (state === "expanding") {
+        setState(AccordionState.EXPANDING);
+      } else if (state === AccordionState.EXPANDING) {
         setTimeout(() => {
-          setState("expanded");
+          setState(AccordionState.EXPANDED);
         }, msCollapseAnimationDuration);
-      } else if (state === "expanded") {
+      } else if (state === AccordionState.EXPANDED) {
         rootRef.current.style.height = "auto";
       }
     } else {
-      if (state === "expanded") {
+      if (state === AccordionState.EXPANDED) {
         rootRef.current.style.height = `${
           rootRef.current.getBoundingClientRect().height
         }px`;
         setTimeout(() => {
-          setState("collapsing");
+          setState(AccordionState.COLLAPSING);
         }, 0);
-      } else if (state === "collapsing") {
+      } else if (state === AccordionState.COLLAPSING) {
         rootRef.current.style.height = "0";
         setTimeout(() => {
-          setState("collapsed");
+          setState(AccordionState.COLLAPSED);
         }, msCollapseAnimationDuration);
-      } else if (state === "collapsed") {
+      } else if (state === AccordionState.COLLAPSED) {
         rootRef.current.style.height = "0";
       }
     }
@@ -105,10 +106,10 @@ export const AccordionDetails = forwardRef<
       <div
         ref={contentRef}
         className={cn({
-          [withBaseName("dummy")]: state === "measuring",
+          [withBaseName("dummy")]: state === AccordionState.MEASURING,
         })}
       >
-        {preventUnmountOnCollapse || state !== "collapsed" ? (
+        {preventUnmountOnCollapse || state !== AccordionState.COLLAPSED ? (
           <div className={withBaseName("content")}>{children}</div>
         ) : null}
       </div>

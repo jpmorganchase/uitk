@@ -6,7 +6,11 @@ import {
   useMemo,
   useState,
 } from "react";
-import { makePrefixer, useControlled } from "@jpmorganchase/uitk-core";
+import {
+  makePrefixer,
+  useControlled,
+  StackLayout,
+} from "@jpmorganchase/uitk-core";
 import "./Accordion.css";
 import cn from "classnames";
 import { AccordionContext } from "./AccordionContext";
@@ -16,6 +20,7 @@ const withBaseName = makePrefixer("uitkAccordion");
 export interface AccordionProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   disabled?: boolean;
+  bordered?: boolean;
   maxExpandedItems?: number;
   expandedSectionIds?: string[];
   defaultExpandedSectionIds?: string[];
@@ -39,6 +44,7 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   function Accordion(
     {
       disabled = false,
+      bordered = false,
       expandedSectionIds: expandedSectionIdsProp,
       defaultExpandedSectionIds = [],
       maxExpandedItems,
@@ -157,7 +163,13 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
     }, [registerSection, unregisterSection, onChange, isExpanded, disabled]);
 
     return (
-      <div className={cn(withBaseName(), className)} {...restProps} ref={ref}>
+      <div
+        className={cn(withBaseName(), className, {
+          [withBaseName("bordered")]: bordered,
+        })}
+        {...restProps}
+        ref={ref}
+      >
         <AccordionContext.Provider value={contextValue}>
           {children}
         </AccordionContext.Provider>
