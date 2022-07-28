@@ -1,5 +1,17 @@
 # @jpmorganchase/uitk-core
 
+## 0.4.0
+
+### Minor Changes
+
+- 5ca5d9d: Change FlexLayout component to wrap by default
+
+### Patch Changes
+
+- e1472d6: Prevent AriaAnnouncer breaking full height layouts
+- 68c4493: Fix click being called by Button when focusWhenDisabled and disabled are true.
+- bb99c30: Add TooltipProps to Pill
+
 ## 0.3.0
 
 ### Minor Changes

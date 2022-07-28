@@ -1,5 +1,30 @@
 # @jpmorganchase/uitk-lab
 
+## 0.4.0
+
+### Minor Changes
+
+- 05d606a: Add SkipLink component to lab
+- 3ac56cc: Add z-index to dropdown and combobox list root
+- fb67b55: Add deck layout component to lab
+- 6364a82: Fix issue where the component anatomy sometimes would not display in the docs due to the root element not being rendered straight away
+
+### Patch Changes
+
+- 765fed6: Theme
+  small additions to text characteristic
+
+  Lab
+  Breadcrumb, ContactDetails, ContentStatus, Metric, Text: apply new naming conventions for CSS variables, add backwardsCompat styling
+  Enhance QA stories
+
+  Docs
+  add functionality to QAContainer
+
+- d3ee206: Refactor ContentStatus to use Typography components
+- 55d77c1: Refactor FileDropZone's characteristic usage
+- 0ee6a5f: Add doc for Lab/Avatar
+
 ## 0.3.0
 
 ### Minor Changes
