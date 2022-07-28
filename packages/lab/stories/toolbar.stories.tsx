@@ -1,5 +1,13 @@
-import { Button, ButtonProps, FormField } from "@jpmorganchase/uitk-core";
 import {
+  Button,
+  FormField,
+  Input,
+  Pill,
+  StaticInputAdornment,
+} from "@jpmorganchase/uitk-core";
+import {
+  AddIcon,
+  ColumnChooserIcon,
   DoubleChevronDownIcon,
   ExportIcon,
   FilterIcon,
@@ -11,13 +19,21 @@ import {
   SettingsIcon,
   SettingsSolidIcon,
   ShareIcon,
+  SwapIcon,
   TearOutIcon,
   UserGroupIcon,
   UserIcon,
 } from "@jpmorganchase/uitk-icons";
-import { Dropdown, Toolbar, Tooltray } from "@jpmorganchase/uitk-lab";
-import { ComponentAnatomy } from "docs/components";
-import { CSSProperties, useState } from "react";
+import {
+  Dropdown,
+  ToggleButton,
+  Toolbar,
+  ToolbarButton,
+  Tooltray,
+} from "@jpmorganchase/uitk-lab";
+import { CSSProperties } from "react";
+import { ComponentAnatomy } from "docs/components/ComponentAnatomy";
+
 import { AdjustableFlexbox } from "./story-components";
 
 import "./toolbar.stories.css";
@@ -27,48 +43,182 @@ export default {
   component: Toolbar,
 };
 
-const ToolbarButton = ({
-  id,
-  label,
-  ...props
-}: { label?: string } & ButtonProps) => (
-  <Button {...props} variant="secondary" id={id} data-overflow-label={label} />
-);
+const statusData = ["All", "New", "Working", "Fully Filled", "Cancelled"];
 
-export const SimpleToolbar = ({ initialWidth = 250, ...toolbarProps }) => {
+export const DefaultToolbar = ({ initialWidth = 450 }) => {
+  const typeData = ["Open", "Close", "Discarted", "Resolved"];
+  const rangeData = [
+    "Today",
+    "Yesterday",
+    "Last Week",
+    "Last Month",
+    "Last Year",
+  ];
+
+  const logItemName = (buttonName: string) =>
+    console.log(`${buttonName} button clicked'`);
+
+  return (
+    <Toolbar id="toolbar-default">
+      <FormField
+        data-close-on-click={false}
+        label="Range"
+        data-activation-indicator
+      >
+        <Dropdown
+          defaultSelected={rangeData[0]}
+          source={rangeData}
+          style={{ width: 100 }}
+        />
+      </FormField>
+      <FormField
+        data-close-on-click={false}
+        label="Type"
+        data-activation-indicator
+      >
+        <Dropdown
+          defaultSelected={typeData[0]}
+          source={typeData}
+          style={{ width: 90 }}
+        />
+      </FormField>
+      <ToolbarButton
+        label="Export"
+        onClick={() => logItemName("export")}
+        variant="secondary"
+      >
+        <ExportIcon />
+      </ToolbarButton>
+      <ToolbarButton
+        label="Share"
+        onClick={() => logItemName("share")}
+        variant="secondary"
+      >
+        <ShareIcon />
+      </ToolbarButton>
+      <ToolbarButton
+        label="Set Alerts"
+        onClick={() => logItemName("alerts")}
+        variant="secondary"
+      >
+        <NotificationIcon />
+      </ToolbarButton>
+      <ToolbarButton
+        label="Expand"
+        onClick={() => logItemName("expand")}
+        variant="secondary"
+      >
+        <TearOutIcon />
+      </ToolbarButton>
+    </Toolbar>
+  );
+};
+
+export const DefaultAdjustable = ({ initialWidth = 450 }) => {
+  const typeData = ["Open", "Close", "Discarted", "Resolved"];
+  const rangeData = [
+    "Today",
+    "Yesterday",
+    "Last Week",
+    "Last Month",
+    "Last Year",
+  ];
+
+  const logItemName = (buttonName: string) =>
+    console.log(`${buttonName} button clicked'`);
+
+  return (
+    <AdjustableFlexbox height={420} width={initialWidth}>
+      <Toolbar id="toolbar-default">
+        <FormField
+          data-close-on-click={false}
+          label="Range"
+          data-activation-indicator
+        >
+          <Dropdown
+            defaultSelected={rangeData[0]}
+            source={rangeData}
+            style={{ width: 100 }}
+          />
+        </FormField>
+        <FormField
+          data-close-on-click={false}
+          label="Type"
+          data-activation-indicator
+        >
+          <Dropdown
+            defaultSelected={typeData[0]}
+            source={typeData}
+            style={{ width: 90 }}
+          />
+        </FormField>
+        <ToolbarButton
+          label="Export"
+          onClick={() => logItemName("export")}
+          variant="secondary"
+        >
+          <ExportIcon />
+        </ToolbarButton>
+        <ToolbarButton
+          label="Share"
+          onClick={() => logItemName("share")}
+          variant="secondary"
+        >
+          <ShareIcon />
+        </ToolbarButton>
+        <ToolbarButton
+          label="Set Alerts"
+          onClick={() => logItemName("alerts")}
+          variant="secondary"
+        >
+          <NotificationIcon />
+        </ToolbarButton>
+        <ToolbarButton
+          label="Expand"
+          onClick={() => logItemName("expand")}
+          variant="secondary"
+        >
+          <TearOutIcon />
+        </ToolbarButton>
+      </Toolbar>
+    </AdjustableFlexbox>
+  );
+};
+
+export const SimpleToolbar = ({ initialWidth = 320, ...toolbarProps }) => {
   return (
     <AdjustableFlexbox height={200} width={initialWidth}>
       <Toolbar {...toolbarProps}>
-        <Button variant="secondary">
+        <ToolbarButton>
           <ExportIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <ShareIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <NotificationIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <TearOutIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <MessageIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <FilterIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <UserGroupIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <PinIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <SearchIcon />
-        </Button>
-        <Button variant="secondary">
+        </ToolbarButton>
+        <ToolbarButton>
           <UserIcon />
-        </Button>
+        </ToolbarButton>
       </Toolbar>
     </AdjustableFlexbox>
   );
@@ -139,71 +289,9 @@ export const SimpleToolbarCollapsibleItemsAnatomy = ({
   );
 };
 
-export const DefaultToolbar = ({ initialWidth = 315 }) => {
-  const typeData = ["Open", "Close", "Discarded", "Resolved"];
-  const rangeData = [
-    "Today",
-    "Yesterday",
-    "Last Week",
-    "Last Month",
-    "Last Year",
-  ];
-
-  const [type, setType] = useState<string | undefined>(typeData[0]);
-  const [range, setRange] = useState<string | undefined>(rangeData[0]);
-
-  const logItemName = (buttonName: string) =>
-    console.log(`${buttonName} button clicked'`);
-
-  return (
-    <AdjustableFlexbox height={100} width={initialWidth}>
-      <Toolbar id="toolbar-default">
-        <FormField
-          data-close-on-click={false}
-          label="Range"
-          data-activation-indicator
-          className="uitkEmphasisMedium"
-        >
-          <Dropdown
-            initialSelectedItem={range}
-            onSelect={(_, item) => setRange(item || undefined)}
-            source={rangeData}
-            style={{ width: 100 }}
-          />
-        </FormField>
-        <FormField
-          data-close-on-click={false}
-          label="Type"
-          data-activation-indicator
-          className="uitkEmphasisMedium"
-        >
-          <Dropdown
-            initialSelectedItem={type}
-            onSelect={(_, item) => setType(item || undefined)}
-            source={typeData}
-            style={{ width: 90 }}
-          />
-        </FormField>
-        <Button onClick={() => logItemName("export")} variant="secondary">
-          <ExportIcon /> Export
-        </Button>
-        <Button onClick={() => logItemName("share")} variant="secondary">
-          <ShareIcon /> Share
-        </Button>
-        <Button onClick={() => logItemName("alerts")} variant="secondary">
-          <NotificationIcon /> Set Alerts
-        </Button>
-        <Button onClick={() => logItemName("expand")} variant="secondary">
-          <TearOutIcon /> Expand
-        </Button>
-      </Toolbar>
-    </AdjustableFlexbox>
-  );
-};
-
 export const InstantCollapseTooltray = () => {
   return (
-    <AdjustableFlexbox height={200} width={400}>
+    <AdjustableFlexbox height={200} width={800}>
       <Toolbar aria-label="Toolbar with collapsible tooltray">
         <Tooltray data-collapsible="instant">
           {[
@@ -217,10 +305,7 @@ export const InstantCollapseTooltray = () => {
                 style={{ width: "62px " }}
                 // withActivationIndicator
               >
-                <Dropdown
-                  initialSelectedItem="light"
-                  source={["light", "dark"]}
-                />
+                <Dropdown defaultSelected="light" source={["light", "dark"]} />
               </FormField>,
               <FormField
                 // closeOnClick={false}
@@ -229,7 +314,7 @@ export const InstantCollapseTooltray = () => {
                 // withActivationIndicator
               >
                 <Dropdown
-                  initialSelectedItem="medium"
+                  defaultSelected="medium"
                   source={["touch", "low", "medium", "high"]}
                 />
               </FormField>,
@@ -249,47 +334,123 @@ export const InstantCollapseTooltray = () => {
   );
 };
 
+export const WithPills = () => {
+  return (
+    <AdjustableFlexbox height={200} width={1000}>
+      <Toolbar
+        aria-label="Tooltray alignment toolbar"
+        style={{ minWidth: "100px" }}
+      >
+        <FormField data-close-on-click={false} data-activation-indicator>
+          <Input
+            startAdornment={
+              <StaticInputAdornment>
+                <FilterIcon />
+              </StaticInputAdornment>
+            }
+            style={{ width: 180 }}
+            value=""
+          />
+        </FormField>
+        <Tooltray aria-label="filters tooltray">
+          <FormField ActivationIndicatorComponent={() => null}>
+            <ToggleButton
+              ariaLabel=" AND"
+              style={{ width: "100%", minWidth: "60px" }}
+              toggled
+            >
+              <SwapIcon /> AND
+            </ToggleButton>
+          </FormField>
+          <FormField ActivationIndicatorComponent={() => null}>
+            <Pill label="LOREM" onClick={() => console.log("lorem.")} />
+          </FormField>
+          <FormField ActivationIndicatorComponent={() => null}>
+            <Pill label="IPSUM" onClick={() => console.log("ipsum.")} />
+          </FormField>
+          <FormField ActivationIndicatorComponent={() => null}>
+            <Pill label="DOLAR" onClick={() => console.log("dolar.")} />
+          </FormField>
+        </Tooltray>
+        <Tooltray aria-label="status tooltray" data-pad-end>
+          <FormField ActivationIndicatorComponent={() => null}>
+            <Button variant="secondary">CLEAR</Button>
+          </FormField>
+          <FormField ActivationIndicatorComponent={() => null}>
+            <Button variant="primary">
+              <AddIcon />
+            </Button>
+          </FormField>
+        </Tooltray>
+        <FormField
+          data-close-on-click={false}
+          label="Status"
+          data-activation-indicator
+        >
+          <Dropdown defaultSelected={statusData[1]} source={statusData} />
+        </FormField>
+        <Tooltray aria-label="search tooltray">
+          <Button variant="primary">
+            <AddIcon />
+          </Button>
+        </Tooltray>
+        <Tooltray aria-label="buttons tooltray">
+          <ToolbarButton itemId="exportButton" overflowLabel="Export">
+            <ExportIcon />
+          </ToolbarButton>
+          <ToolbarButton itemId="colsButton" overflowLabel="Select Columns">
+            <ColumnChooserIcon />
+          </ToolbarButton>
+          <ToolbarButton itemId="settingsButton" overflowLabel="Settings">
+            <SettingsIcon />
+          </ToolbarButton>
+        </Tooltray>
+      </Toolbar>
+    </AdjustableFlexbox>
+  );
+};
+
 export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
   const pStyle: CSSProperties = { whiteSpace: "nowrap", overflow: "hidden" };
 
   return (
     <AdjustableFlexbox height={500} width={initialWidth}>
-      <p style={pStyle}>
+      {/* <p style={pStyle}>
         A single <em>Toolbar</em> with 10 buttons
       </p>
       <Toolbar aria-label="Toolbar with dynamic collapse variants">
-        <ToolbarButton id="messageButton" label="Email">
+        <ToolbarButton label="Email">
           <MessageIcon />
         </ToolbarButton>
-        <ToolbarButton id="searchButton" label="Search">
+        <ToolbarButton label="Search">
           <SearchIcon />
         </ToolbarButton>
-        <ToolbarButton id="filterButton" label="Filter">
+        <ToolbarButton label="Filter">
           <FilterIcon />
         </ToolbarButton>
-        <ToolbarButton id="userButton" label="User">
+        <ToolbarButton label="User">
           <UserIcon />
         </ToolbarButton>
-        <ToolbarButton id="userGroupButton" label="User Group">
+        <ToolbarButton label="User Group">
           <UserGroupIcon />
         </ToolbarButton>
-        <ToolbarButton id="tearOutButton" label="Tear Out">
+        <ToolbarButton label="Tear Out">
           <TearOutIcon />
         </ToolbarButton>
-        <ToolbarButton id="expandButton" label="Expand">
+        <ToolbarButton label="Expand">
           <DoubleChevronDownIcon />
         </ToolbarButton>
-        <ToolbarButton id="pinButton" label="Pin">
+        <ToolbarButton label="Pin">
           <PinIcon />
         </ToolbarButton>
-        <ToolbarButton id="settingsButton" label="Settings">
+        <ToolbarButton label="Settings">
           <SettingsIcon />
         </ToolbarButton>
-        <ToolbarButton id="settingsSolidButton" label="More Settings">
+        <ToolbarButton label="More Settings">
           <SettingsSolidIcon />
         </ToolbarButton>
-      </Toolbar>
-      <p style={pStyle}>
+      </Toolbar> */}
+      {/* <p style={pStyle}>
         A single <em>Tooltray</em> with 10 buttons
       </p>
       <Toolbar aria-label="Toolbar with dynamic collapse variants">
@@ -329,7 +490,7 @@ export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
             <SettingsSolidIcon />
           </ToolbarButton>
         </Tooltray>
-      </Toolbar>
+      </Toolbar> */}
       <p style={pStyle}>
         Two Tooltrays, 5 buttons each, both dynamic, <strong>default</strong>{" "}
         overflow priority
@@ -340,19 +501,19 @@ export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
           data-collapsible="dynamic"
           // overflowButtonLabel="left"
         >
-          <ToolbarButton id="messageButton" label="Email">
+          <ToolbarButton label="Email">
             <MessageIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Search">
+          <ToolbarButton label="Search">
             <SearchIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Filter">
+          <ToolbarButton label="Filter">
             <FilterIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="User">
+          <ToolbarButton label="User">
             <UserIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Group">
+          <ToolbarButton label="Group">
             <UserGroupIcon />
           </ToolbarButton>
         </Tooltray>
@@ -361,26 +522,26 @@ export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
           data-collapsible="dynamic"
           // overflowButtonLabel="right"
         >
-          <ToolbarButton id="messageButton" label="Tear Out">
+          <ToolbarButton label="Tear Out">
             <TearOutIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Expand">
+          <ToolbarButton label="Expand">
             <DoubleChevronDownIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Pin">
+          <ToolbarButton label="Pin">
             <PinIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Settings">
+          <ToolbarButton label="Settings">
             <SettingsIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="More Settings">
+          <ToolbarButton label="More Settings">
             <SettingsSolidIcon />
           </ToolbarButton>
         </Tooltray>
       </Toolbar>
       <p style={pStyle}>
         Two Tooltrays, 5 buttons each, both dynamic, <strong>first</strong> has
-        higher overflow priority
+        higher overflow priority (so will collapse first)
       </p>
       <Toolbar>
         <Tooltray
@@ -389,19 +550,19 @@ export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
           data-priority={4}
           // overflowButtonLabel="left"
         >
-          <ToolbarButton id="messageButton" label="Email">
+          <ToolbarButton label="Email">
             <MessageIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Search">
+          <ToolbarButton label="Search">
             <SearchIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Filter">
+          <ToolbarButton label="Filter">
             <FilterIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="User">
+          <ToolbarButton label="User">
             <UserIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Group">
+          <ToolbarButton label="Group">
             <UserGroupIcon />
           </ToolbarButton>
         </Tooltray>
@@ -410,19 +571,19 @@ export const WithDynamicCollapseVariants = ({ initialWidth = 500 }) => {
           data-collapsible="dynamic"
           // overflowButtonLabel="right"
         >
-          <ToolbarButton id="messageButton" label="Tear Out">
+          <ToolbarButton label="Tear Out">
             <TearOutIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Expand">
+          <ToolbarButton label="Expand">
             <DoubleChevronDownIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Pin">
+          <ToolbarButton label="Pin">
             <PinIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="Settings">
+          <ToolbarButton label="Settings">
             <SettingsIcon />
           </ToolbarButton>
-          <ToolbarButton id="messageButton" label="More Settings">
+          <ToolbarButton label="More Settings">
             <SettingsSolidIcon />
           </ToolbarButton>
         </Tooltray>
@@ -507,6 +668,81 @@ export const MockAppHeader = () => {
             <SettingsSolidIcon />
           </ToolbarButton>
         </Tooltray>
+      </Toolbar>
+    </AdjustableFlexbox>
+  );
+};
+
+const SearchWidget = () => {
+  return (
+    <div className="SearchWidget" style={{ backgroundColor: "red" }}></div>
+  );
+};
+
+export const ToolbarWithBreakpointSensitiveContent = () => {
+  const typeData = ["Open", "Close", "Discarted", "Resolved"];
+  const rangeData = [
+    "Today",
+    "Yesterday",
+    "Last Week",
+    "Last Month",
+    "Last Year",
+  ];
+
+  // const [type, setType] = useState<string | undefined>(typeData[0]);
+  // const [range, setRange] = useState<string | undefined>(rangeData[0]);
+
+  const logItemName = (buttonName: string) =>
+    console.log(`${buttonName} button clicked'`);
+
+  return (
+    <AdjustableFlexbox height={420} width={600}>
+      <Toolbar id="toolbar-default">
+        <Tooltray
+          id="1"
+          data-priority={1}
+          aria-label="left dynamic tooltray"
+          // overflowButtonLabel="left"
+        >
+          <ToolbarButton id="messageButton" label="Search">
+            <SearchIcon />
+          </ToolbarButton>
+        </Tooltray>
+
+        <FormField
+          data-close-on-click={false}
+          label="Range"
+          data-activation-indicator
+        >
+          <Dropdown
+            defaultSelected={rangeData[0]}
+            source={rangeData}
+            style={{ width: 100 }}
+          />
+        </FormField>
+        <FormField
+          data-close-on-click={false}
+          label="Type"
+          data-activation-indicator
+        >
+          <Dropdown
+            defaultSelected={typeData[0]}
+            source={typeData}
+            style={{ width: 90 }}
+          />
+        </FormField>
+        <Button onClick={() => logItemName("export")} variant="secondary">
+          <ExportIcon /> Export
+        </Button>
+        <Button onClick={() => logItemName("share")} variant="secondary">
+          <ShareIcon /> Share
+        </Button>
+        <Button onClick={() => logItemName("alerts")} variant="secondary">
+          <NotificationIcon /> Set Alerts
+        </Button>
+        <Button onClick={() => logItemName("expand")} variant="secondary">
+          <TearOutIcon /> Expand
+        </Button>
       </Toolbar>
     </AdjustableFlexbox>
   );
