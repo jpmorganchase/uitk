@@ -4,6 +4,7 @@ import {
   TooltipProps,
   useForkRef,
   useTooltip,
+  polymorphicRef,
 } from "@jpmorganchase/uitk-core";
 import cx from "classnames";
 import {
@@ -11,12 +12,32 @@ import {
   ElementType,
   forwardRef,
   ComponentPropsWithoutRef,
-  useMemo,
-  useCallback,
+  ReactElement,
+  RefObject,
+  HTMLAttributes,
+  ForwardedRef,
 } from "react";
 import { useTruncation } from "./useTruncation";
 
 import "./Text.css";
+
+// export type As = "div" | "a" | "span" | "label" | "h1" | "h2" | "h3" | "h4";
+
+// export type Element<T extends As = "div"> = T extends "span"
+//   ? HTMLSpanElement
+//   : T extends "label"
+//   ? HTMLLabelElement
+//   : T extends "a"
+//   ? HTMLAnchorElement
+//   : T extends "h1"
+//   ? HTMLHeadingElement
+//   : T extends "h2"
+//   ? HTMLHeadingElement
+//   : T extends "h3"
+//   ? HTMLHeadingElement
+//   : T extends "h4"
+//   ? HTMLHeadingElement
+//   : HTMLDivElement;
 
 const withBaseName = makePrefixer("uitkText");
 
@@ -27,11 +48,11 @@ interface TextPropsBase<E extends ElementType> {
    */
   elementType?: ElementType;
   /**
-   * When set, this will enforce the text to be truncated.
+   * Number of rows to display when truncate=true.
    */
   maxRows?: number;
   /**
-   * If 'true', component will apply the logic for truncation. If 'false' then text will be displayed at 100% height and will show scrollbar if the parent restricts it's height.
+   * If 'true', component will apply the logic for truncation. If 'false' then text will display entirely.
    * Defaults to 'false'
    */
   truncate?: boolean;
@@ -66,82 +87,91 @@ interface TextPropsBase<E extends ElementType> {
 export type TextProps<E extends ElementType = "div"> = TextPropsBase<E> &
   Omit<ComponentPropsWithoutRef<E>, keyof TextPropsBase<E>>;
 
-export const Text = forwardRef<HTMLElement, TextProps<ElementType>>(
-  function Text(props, ref) {
-    const {
-      children,
-      className,
-      elementType = "div",
-      maxRows,
-      onOverflowChange,
-      showTooltip = true,
-      style,
-      styleAs,
-      tooltipProps,
-      tooltipText,
-      truncate = false,
-      tabIndex,
-      ...restProps
-    } = props;
+type PolymorphicText = <T extends ElementType = "div">(
+  props: TextProps<T> & {
+    ref?: ForwardedRef<HTMLElement>;
+  }
+) => ReactElement<TextProps<T>>;
 
-    // Rendering
-    const Component: ElementType = elementType;
+export const Text = forwardRef<any, TextProps<ElementType>>(function Text<
+  E extends ElementType = "div"
+>(
+  props: TextProps<E>,
+  ref: ForwardedRef<HTMLElement>
+): ReactElement<TextProps<E>> {
+  const {
+    children,
+    className,
+    elementType = "div",
+    maxRows,
+    onOverflowChange,
+    showTooltip = true,
+    style,
+    styleAs,
+    tooltipProps,
+    tooltipText,
+    truncate = false,
+    tabIndex,
+    ...restProps
+  } = props;
 
-    const getTruncatingComponent = () => {
-      const { setContainerRef, hasTooltip, tooltipTextDefault, rows } =
-        useTruncation(props, ref);
+  // Rendering
+  const Component: ElementType = elementType;
 
-      const { getTooltipProps, getTriggerProps } = useTooltip({
-        enterDelay: 150,
-        placement: "top",
-        disabled: !hasTooltip,
-      });
+  const getTruncatingComponent = () => {
+    const { setContainerRef, hasTooltip, tooltipTextDefault, rows } =
+      useTruncation({ children, maxRows, showTooltip, onOverflowChange }, ref);
 
-      const { ref: triggerRef, ...triggerProps } = getTriggerProps({
-        className: cx(withBaseName(), className, withBaseName("lineClamp"), {
-          [withBaseName(styleAs || "")]: styleAs,
-        }),
-        tabIndex: hasTooltip || elementType === "a" ? 0 : -1,
-        style: {
-          ...style,
-          // @ts-ignore
-          "--text-max-rows": rows,
-        },
-        ...restProps,
-      });
+    const { getTooltipProps, getTriggerProps } = useTooltip({
+      enterDelay: 150,
+      placement: "top",
+      disabled: !hasTooltip,
+    });
 
-      const handleRef = useForkRef(triggerRef, setContainerRef);
+    const { ref: triggerRef, ...triggerProps } = getTriggerProps({
+      className: cx(withBaseName(), className, withBaseName("lineClamp"), {
+        [withBaseName(styleAs || "")]: styleAs,
+      }),
+      tabIndex: hasTooltip || elementType === "a" ? 0 : -1,
+      style: {
+        ...style,
+        // @ts-ignore
+        "--text-max-rows": rows,
+      },
+      ...restProps,
+    } as HTMLAttributes<HTMLDivElement>);
 
-      return (
-        <>
-          <Component {...triggerProps} ref={handleRef}>
-            {children}
-          </Component>
-          <Tooltip
-            {...getTooltipProps({
-              title: tooltipText || tooltipTextDefault,
-              ...tooltipProps,
-            })}
-          />
-        </>
-      );
-    };
-
-    if (truncate) {
-      return getTruncatingComponent();
-    }
+    const handleRef = useForkRef(triggerRef, setContainerRef);
 
     return (
-      <Component
-        className={cx(withBaseName(), className, {
-          [withBaseName(styleAs || "")]: styleAs,
-        })}
-        {...restProps}
-        ref={ref}
-        style={style}
-      >
-        {children}
-      </Component>
+      <>
+        <Component {...triggerProps} ref={handleRef}>
+          {children}
+        </Component>
+        <Tooltip
+          {...getTooltipProps({
+            title: tooltipText || tooltipTextDefault,
+            ...tooltipProps,
+          })}
+        />
+      </>
     );
+  };
+
+  if (truncate) {
+    return getTruncatingComponent();
   }
-);
+
+  return (
+    <Component
+      className={cx(withBaseName(), className, {
+        [withBaseName(styleAs || "")]: styleAs,
+      })}
+      {...restProps}
+      ref={ref}
+      style={style}
+    >
+      {children}
+    </Component>
+  );
+}) as PolymorphicText;
