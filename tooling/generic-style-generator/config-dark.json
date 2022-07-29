@@ -1,0 +1,20 @@
+{
+  "source": ["tokens/**/all/*.json", "tokens/**/dark/*.json", "tokens/**/*.js"],
+  "platforms": {
+    "css": {
+      "transformGroup": "uitk/css",
+      "buildPath": "build/css/",
+      "prefix": "uitk",
+      "files": [
+        {
+          "format": "uitk/css/themes/dark",
+          "destination": "palette-dark.css",
+          "options": {
+            "outputReferences": true
+          },
+          "filter": "uitk/filter/colors/palette-dark"
+        }
+      ]
+    }
+  }
+}

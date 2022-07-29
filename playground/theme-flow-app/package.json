@@ -1,0 +1,16 @@
+{
+  "name": "@jpmorganchase/theme-flow-app",
+  "version": "0.1.0",
+  "private": true,
+  "modular": {
+    "type": "app"
+  },
+  "dependencies": {
+    "@jpmorganchase/theme-editor": ">=1.0.0",
+    "css-tree": "^2.0.4",
+    "react-flow-renderer": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/css-tree": "^1.0.7"
+  }
+}
