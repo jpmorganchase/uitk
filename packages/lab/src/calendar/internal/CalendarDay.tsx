@@ -61,9 +61,9 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
           [withBaseName("hidden")]: hidden,
           [withBaseName("outOfRange")]: outOfRange,
           [withBaseName("today")]: today,
-          [withBaseName("unselectableLowEmphasis")]: unselectable === "low",
-          [withBaseName("unselectableMediumEmphasis")]:
-            unselectable === "medium",
+          [withBaseName("unselectable")]: !!unselectable,
+          uitkLowEmphasis: unselectable === "low",
+          uitkMediumEmphasis: unselectable === "medium",
         },
         dayProps.className,
         className
