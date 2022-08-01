@@ -14,6 +14,8 @@ import {
   forwardRef,
   MouseEventHandler,
   SyntheticEvent,
+  useState,
+  useEffect,
 } from "react";
 import { Dropdown, DropdownProps } from "../../dropdown";
 import { IndexedListItemProps, ListItemBase, useListItem } from "../../list";
@@ -117,10 +119,17 @@ const ListItemWithTooltip = forwardRef<
   IndexedListItemProps<DropdownItem>
 >((props, ref) => {
   const { item, itemProps, itemToString } = useListItem<DropdownItem>(props);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  useEffect(() => {
+    setTooltipOpen(Boolean(itemProps.highlighted));
+  }, [itemProps.highlighted]);
 
   const { getTooltipProps, getTriggerProps } = useTooltip({
     placement: "right",
     disabled: !item.disabled,
+    onOpenChange: setTooltipOpen,
+    open: tooltipOpen,
   });
 
   const { ref: triggerRef, ...triggerProps } =
@@ -144,7 +153,7 @@ const ListItemWithTooltip = forwardRef<
       </ListItemBase>
       <Tooltip
         {...getTooltipProps({
-          title: "Out of range",
+          title: "This month is out of range",
         })}
       />
     </>
@@ -220,6 +229,22 @@ export const CalendarNavigation = forwardRef<
     return dayjs(date.value).format("YYYY");
   };
 
+  const {
+    getTriggerProps: getPreviousButtonProps,
+    getTooltipProps: getPreviousButtonTooltipProps,
+  } = useTooltip({
+    placement: "top",
+    disabled: canNavigatePrevious,
+  });
+
+  const {
+    getTriggerProps: getNextButtonProps,
+    getTooltipProps: getNextButtonTooltipProps,
+  } = useTooltip({
+    placement: "top",
+    disabled: canNavigateNext,
+  });
+
   return (
     <div
       className={cx(
@@ -231,10 +256,13 @@ export const CalendarNavigation = forwardRef<
       {...rest}
     >
       <Button
-        disabled={!canNavigatePrevious}
-        variant="secondary"
-        onClick={handleNavigatePrevious}
-        className={withBaseName("previousButton")}
+        {...getPreviousButtonProps<typeof Button>({
+          disabled: !canNavigatePrevious,
+          variant: "secondary",
+          onClick: handleNavigatePrevious,
+          className: withBaseName("previousButton"),
+          focusableWhenDisabled: true,
+        })}
       >
         <ChevronLeftIcon
           aria-label={`Previous Month, ${dayjs(visibleMonth)
@@ -242,6 +270,11 @@ export const CalendarNavigation = forwardRef<
             .format("MMMM YYYY")}`}
         />
       </Button>
+      <Tooltip
+        {...getPreviousButtonTooltipProps({
+          title: "Past dates are out of range",
+        })}
+      />
       <Dropdown<DropdownItem>
         source={months}
         id={monthDropdownId}
@@ -269,10 +302,13 @@ export const CalendarNavigation = forwardRef<
         />
       )}
       <Button
-        disabled={!canNavigateNext}
-        variant="secondary"
-        onClick={handleNavigateNext}
-        className={withBaseName("nextButton")}
+        {...getNextButtonProps<typeof Button>({
+          disabled: !canNavigateNext,
+          variant: "secondary",
+          onClick: handleNavigateNext,
+          className: withBaseName("nextButton"),
+          focusableWhenDisabled: true,
+        })}
       >
         <ChevronRightIcon
           aria-label={`Next Month, ${dayjs(visibleMonth)
@@ -280,6 +316,11 @@ export const CalendarNavigation = forwardRef<
             .format("MMMM YYYY")}`}
         />
       </Button>
+      <Tooltip
+        {...getNextButtonTooltipProps({
+          title: "Future dates are out of range",
+        })}
+      />
     </div>
   );
 });

@@ -47,6 +47,8 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
 
     const { getTriggerProps, getTooltipProps } = useTooltip({
       disabled: !unselectableReason,
+      placement: "top",
+      enterDelay: 300,
     });
 
     const { ref: triggerRef, ...triggerProps } = getTriggerProps<"button">({
@@ -58,9 +60,10 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
         {
           [withBaseName("hidden")]: hidden,
           [withBaseName("outOfRange")]: outOfRange,
-          [withBaseName("unselectableHighEmphasis")]: unselectable === "high",
           [withBaseName("today")]: today,
-          [withBaseName("unselectableLowEmphasis")]: unselectable === "low",
+          [withBaseName("unselectable")]: !!unselectable,
+          uitkLowEmphasis: unselectable === "low",
+          uitkMediumEmphasis: unselectable === "medium",
         },
         dayProps.className,
         className
@@ -87,7 +90,7 @@ export const CalendarDay = forwardRef<HTMLButtonElement, CalendarDayProps>(
           })}
         />
         <button {...triggerProps} ref={handleRef}>
-          {unselectable === "high" && (
+          {unselectable === "medium" && (
             <CloseIcon
               aria-hidden
               aria-label={undefined}
