@@ -13,31 +13,11 @@ import {
   forwardRef,
   ComponentPropsWithoutRef,
   ReactElement,
-  RefObject,
   HTMLAttributes,
-  ForwardedRef,
 } from "react";
 import { useTruncation } from "./useTruncation";
 
 import "./Text.css";
-
-// export type As = "div" | "a" | "span" | "label" | "h1" | "h2" | "h3" | "h4";
-
-// export type Element<T extends As = "div"> = T extends "span"
-//   ? HTMLSpanElement
-//   : T extends "label"
-//   ? HTMLLabelElement
-//   : T extends "a"
-//   ? HTMLAnchorElement
-//   : T extends "h1"
-//   ? HTMLHeadingElement
-//   : T extends "h2"
-//   ? HTMLHeadingElement
-//   : T extends "h3"
-//   ? HTMLHeadingElement
-//   : T extends "h4"
-//   ? HTMLHeadingElement
-//   : HTMLDivElement;
 
 const withBaseName = makePrefixer("uitkText");
 
