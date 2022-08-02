@@ -1,5 +1,7 @@
 import {
+  ButtonProps,
   makePrefixer,
+  polymorphicRef,
   Tooltip,
   TooltipProps,
   useForkRef,
@@ -11,8 +13,7 @@ import {
   ElementType,
   forwardRef,
   ComponentPropsWithoutRef,
-  useMemo,
-  useCallback,
+  ReactElement,
 } from "react";
 import { useTruncation } from "./useTruncation";
 
@@ -66,82 +67,87 @@ interface TextPropsBase<E extends ElementType> {
 export type TextProps<E extends ElementType = "div"> = TextPropsBase<E> &
   Omit<ComponentPropsWithoutRef<E>, keyof TextPropsBase<E>>;
 
-export const Text = forwardRef<HTMLElement, TextProps<ElementType>>(
-  function Text(props, ref) {
-    const {
-      children,
-      className,
-      elementType = "div",
-      maxRows,
-      onOverflowChange,
-      showTooltip = true,
-      style,
-      styleAs,
-      tooltipProps,
-      tooltipText,
-      truncate = false,
-      tabIndex,
-      ...restProps
-    } = props;
+type PolymorphicText = <T extends ElementType = "div">(
+  p: TextProps<T> & { ref?: polymorphicRef<T> }
+) => ReactElement<TextProps<T>>;
 
-    // Rendering
-    const Component: ElementType = elementType;
+export const Text = forwardRef(function Text<T extends ElementType = "div">(
+  props: TextProps<T>,
+  ref?: polymorphicRef<T>
+): ReactElement<ButtonProps<T>> {
+  const {
+    children,
+    className,
+    elementType = "div",
+    maxRows,
+    onOverflowChange,
+    showTooltip = true,
+    style,
+    styleAs,
+    tooltipProps,
+    tooltipText,
+    truncate = false,
+    tabIndex,
+    ...restProps
+  } = props;
 
-    const getTruncatingComponent = () => {
-      const { setContainerRef, hasTooltip, tooltipTextDefault, rows } =
-        useTruncation(props, ref);
+  // Rendering
+  const Component: ElementType = elementType;
 
-      const { getTooltipProps, getTriggerProps } = useTooltip({
-        enterDelay: 150,
-        placement: "top",
-        disabled: !hasTooltip,
-      });
+  const getTruncatingComponent = () => {
+    const { setContainerRef, hasTooltip, tooltipTextDefault, rows } =
+      useTruncation(props, ref);
 
-      const { ref: triggerRef, ...triggerProps } = getTriggerProps({
-        className: cx(withBaseName(), className, withBaseName("lineClamp"), {
-          [withBaseName(styleAs || "")]: styleAs,
-        }),
-        tabIndex: hasTooltip || elementType === "a" ? 0 : -1,
-        style: {
-          ...style,
-          // @ts-ignore
-          "--text-max-rows": rows,
-        },
-        ...restProps,
-      });
+    const { getTooltipProps, getTriggerProps } = useTooltip({
+      enterDelay: 150,
+      placement: "top",
+      disabled: !hasTooltip,
+    });
 
-      const handleRef = useForkRef(triggerRef, setContainerRef);
+    const { ref: triggerRef, ...triggerProps } = getTriggerProps({
+      className: cx(withBaseName(), className, withBaseName("lineClamp"), {
+        [withBaseName(styleAs || "")]: styleAs,
+      }),
+      tabIndex: hasTooltip || elementType === "a" ? 0 : -1,
+      style: {
+        ...style,
+        // @ts-ignore
+        "--text-max-rows": rows,
+      },
+      ...restProps,
+    });
 
-      return (
-        <>
-          <Component {...triggerProps} ref={handleRef}>
-            {children}
-          </Component>
-          <Tooltip
-            {...getTooltipProps({
-              title: tooltipText || tooltipTextDefault,
-              ...tooltipProps,
-            })}
-          />
-        </>
-      );
-    };
-
-    if (truncate) {
-      return getTruncatingComponent();
-    }
+    const handleRef = useForkRef(triggerRef, setContainerRef);
 
     return (
-      <Component
-        className={cx(withBaseName(), className, {
-          [withBaseName(styleAs || "")]: styleAs,
-        })}
-        {...restProps}
-        ref={ref}
-        style={style}
-      >
-        {children}
-      </Component>
+      <>
+        <Component {...triggerProps} ref={handleRef}>
+          {children}
+        </Component>
+        <Tooltip
+          {...getTooltipProps({
+            title: tooltipText || tooltipTextDefault,
+            ...tooltipProps,
+          })}
+        />
+      </>
     );
+  };
+
+  if (truncate) {
+    return getTruncatingComponent();
   }
-);
+
+  return (
+    <Component
+      className={cx(withBaseName(), className, {
+        [withBaseName(styleAs || "")]: styleAs,
+      })}
+      {...restProps}
+      ref={ref}
+      style={style}
+    >
+      {children}
+    </Component>
+  );
+}) as PolymorphicText;
