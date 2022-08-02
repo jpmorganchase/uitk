@@ -87,18 +87,15 @@ interface TextPropsBase<E extends ElementType> {
 export type TextProps<E extends ElementType = "div"> = TextPropsBase<E> &
   Omit<ComponentPropsWithoutRef<E>, keyof TextPropsBase<E>>;
 
-type PolymorphicText = <T extends ElementType = "div">(
+type PolymorphicText = <T extends ElementType>(
   props: TextProps<T> & {
-    ref?: ForwardedRef<HTMLElement>;
+    ref?: polymorphicRef<T>;
   }
 ) => ReactElement<TextProps<T>>;
 
 export const Text = forwardRef<any, TextProps<ElementType>>(function Text<
   E extends ElementType = "div"
->(
-  props: TextProps<E>,
-  ref: ForwardedRef<HTMLElement>
-): ReactElement<TextProps<E>> {
+>(props: TextProps<E>, ref: polymorphicRef<E>): ReactElement<TextProps<E>> {
   const {
     children,
     className,
